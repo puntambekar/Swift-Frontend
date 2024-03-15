@@ -6,6 +6,7 @@ import { Navbar } from './NavbarAndFooter/Navbar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HomePage } from './HomePage/HomePage';
 import { SearchPage } from './SearchPage/SearchPage';
+import { VenueDetailPage } from './VenueDetailPage/VenueDetailPage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/page" element={<div>Page</div>} />
         <Route path="/about" element={<div>About</div>} />
         <Route path="/contact" element={<div>Contact</div>} />
+        <Route path="/view/:venueId" element={<VenueDetailPage/>}></Route>
 
       </Routes>
     </BrowserRouter>

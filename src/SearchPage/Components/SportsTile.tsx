@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Venue from "../../Models/Venue";
 
 export const SportsTile: React.FC<{ venue:Venue }> = (props) => {
@@ -10,7 +11,7 @@ export const SportsTile: React.FC<{ venue:Venue }> = (props) => {
             <h5 className="card-title">{props.venue.businessName}</h5>
             <p className="card-text">{props.venue.address}</p>
             <p className="card-text">{props.venue.city}</p>
-            <a href="#" className="btn btn-dark">Select</a>
+            <Link to={`/view/${props.venue.venueId}`} className="btn btn-dark">Select</Link>
         </div>
     </div>
     </div>

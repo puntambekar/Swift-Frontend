@@ -95,15 +95,6 @@ const sampleData: Venue[] = Array.from({ length: 25 }, (_, index) => {
         fictionalNames[index],
         fictionalAddresses[index],
         fictionalCities[index],
-        {
-            Mon: [8, 9, 10, 12, 14, 16, 18],
-            Tue: [9, 10, 11, 13, 15, 17, 19],
-            Wed: [10, 11, 12, 14, 16, 18, 20],
-            Thu: [11, 12, 13, 15, 17, 19, 21],
-            Fri: [12, 13, 14, 16, 18, 20, 22],
-            Sat: [13, 14, 15, 17, 19, 21, 23],
-            Sun: [14, 15, 16, 18, 20, 22, 24],
-        }
     );
 });
 
