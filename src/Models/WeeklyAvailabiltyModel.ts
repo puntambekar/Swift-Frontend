@@ -1,31 +1,31 @@
-class MonthlyAvailabiltyChart {
-    venueId: number;
+class WeeklyAvailabiltyModel {
+   // venueId: number;
     year: string;
     month: string;
 
-    days: {
+    dailyAvailability: {
         date: string|Date;
         hourlyAvailability: {
             time: string;
-            availability: number;
+            courtAvailable: number;
         }[];
     }[];
 
-    constructor(venueId: number, year: string, month: string, days: {
+    constructor( year: string, month: string, days: {
         date: string|Date;
         hourlyAvailability: {
             time: string;
-            availability: number;
+            courtAvailable: number;
         }[];
     }[]) {
-        this.venueId = venueId;
+       // this.venueId = venueId;
         this.year = year;
         this.month = month;
-        this.days = days;
+        this.dailyAvailability = days;
     }
 }
 
 
 
 
-export default MonthlyAvailabiltyChart;
+export default WeeklyAvailabiltyModel;

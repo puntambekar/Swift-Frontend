@@ -1,15 +1,15 @@
 import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react"
-import MonthlyAvailabiltyModel from "../../Models/MonthlyAvailabiltyModel"
+import MonthlyAvailabiltyModel from "../../Models/WeeklyAvailabiltyModel"
 import moment from "moment"
 
-export const TimeSlot = () => {
+export const TimeSlot:React.FC<{day:moment.Moment}> = (props) => {
 
   return (<div className="btn-group" role="group" aria-label="Button group with nested dropdown">
-  <button type="button" className="btn btn-primary">8AM : 10 available</button>
-
+  <button type="button" className="btn btn-outline-primary">8AM : 10 available {props.day.date()}</button>
+  
 
    <div className="btn-group dropend" role="group">
-    <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    <button type="button" className="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
       Select courts
     </button>
     <ul className="dropdown-menu">

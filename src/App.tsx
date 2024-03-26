@@ -7,10 +7,14 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HomePage } from './HomePage/HomePage';
 import { SearchPage } from './SearchPage/SearchPage';
 import { VenueDetailPage } from './VenueDetailPage/VenueDetailPage';
+import { Footer } from './NavbarAndFooter/Footer';
+import { Booking } from './VenueDetailPage/Components/Booking';
+
+
 
 function App() {
   return (
-    <div >
+    <div className="main-content" style={{ paddingBottom: "60px" }}>
    
    <BrowserRouter>
    <Navbar/>
@@ -22,9 +26,11 @@ function App() {
         <Route path="/page" element={<div>Page</div>} />
         <Route path="/about" element={<div>About</div>} />
         <Route path="/contact" element={<div>Contact</div>} />
+        <Route path="/booking" element={<Booking selectedVenue={undefined}/>} />
         <Route path="/view/:venueId" element={<VenueDetailPage/>}></Route>
 
       </Routes>
+      <Footer/>
     </BrowserRouter>
     </div>
   );

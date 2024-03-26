@@ -1,107 +1,48 @@
+import { useEffect, useState } from "react";
 import Venue from "../../Models/Venue";
 import { SportsTile } from "./SportsTile";
 
-export const SportsTiles = () => {
-    const arr: string[] = ["tile 1", "tile 2", "tile 3", "tile 4", "tile 5", "tile 6", "tile 7", "tile 8", "tile 9", "tile 10", "tile 11", "tile 12",
-        "tile 13", "tile 14", "tile 15", "tile 16", "tile 17", "tile 18", "tile 19", "tile 20", "tile 21", "tile 22", "tile 23", "tile 24"];
+export const SportsTiles: React.FC<{ selectedVenue: string, selectedDate: string }> = (props) => {
 
-        // Generate fictional names, addresses, and cities
-const fictionalNames = [
-    "Golden Grove",
-    "Sapphire Haven",
-    "Sunset Oasis",
-    "Mystic Gardens",
-    "Twilight Terrace",
-    "Crystal Ballroom",
-    "Enchanted Hall",
-    "Moonlit Courtyard",
-    "Starlight Lounge",
-    "Royal Pavilion",
-    "Emerald Elegance",
-    "Crimson Court",
-    "Silver Springs",
-    "Opulent Orchid",
-    "Dazzling Dreams",
-    "Harmony Haven",
-    "Radiant Reflections",
-    "Ethereal Elegance",
-    "Grand Gala",
-    "Whispering Willows",
-    "Velvet Vista",
-    "Celestial Center",
-    "Azure Atrium",
-    "Jubilant Junction"
-];
+    const [httpError, setHttpError] = useState(null);
+    const [venues, setVenues] = useState<Venue[]>([]);
 
-const fictionalAddresses = [
-    "123 Main Street",
-    "456 Elm Avenue",
-    "789 Oak Boulevard",
-    "101 Pine Lane",
-    "202 Maple Drive",
-    "303 Cedar Place",
-    "404 Birch Road",
-    "505 Willow Street",
-    "606 Redwood Avenue",
-    "707 Sycamore Lane",
-    "808 Cedar Boulevard",
-    "909 Oak Street",
-    "210 Pine Avenue",
-    "321 Maple Boulevard",
-    "432 Elm Lane",
-    "543 Redwood Drive",
-    "654 Birch Place",
-    "765 Cedar Road",
-    "876 Willow Lane",
-    "987 Main Drive",
-    "108 Pine Place",
-    "219 Oak Drive",
-    "320 Maple Road",
-    "431 Elm Lane",
-    "542 Redwood Place"
-];
+    useEffect(() => {
+        const fetchAllVenues = async () => {
+            const url: string = "http://localhost:8080/api/venues";
 
-const fictionalCities = [
-    "Fictionville",
-    "Imaginatown",
-    "Dreamlandia",
-    "Fantasia City",
-    "Whimsyville",
-    "Enchantopolis",
-    "Storybook Springs",
-    "Wonderville",
-    "Mystical Metropolis",
-    "Harmony Haven",
-    "Utopia Springs",
-    "Wonderland",
-    "Fableburg",
-    "Mythosburg",
-    "Fairytale Town",
-    "Dreamscape City",
-    "Epicville",
-    "Fanciful Falls",
-    "Nebula City",
-    "Magic Meadows",
-    "Whispering Woods",
-    "Starlight City",
-    "Enigma Springs",
-    "Celestial Spires"
-];
+            const response = await fetch(url);
+            const responseJson = await response.json();
 
-// Generate 25 sample data instances with fictional names, addresses, and cities
-const sampleData: Venue[] = Array.from({ length: 25 }, (_, index) => {
-    return new Venue(
-        index,
-        fictionalNames[index],
-        fictionalAddresses[index],
-        fictionalCities[index],
-    );
-});
+            const loadedVenues: Venue[] = [];
+
+            for (const key in responseJson) {
+                loadedVenues.push({
+                    venueId: responseJson[key].id,
+                    businessName: responseJson[key].businessName,
+                    address: responseJson[key].address,
+                    city: responseJson[key].city,
+                    availabilityData: responseJson[key].availability
+
+                })
+            }
+
+            setVenues(loadedVenues);
+
+
+        }
+        fetchAllVenues().catch((error) => {
+            setHttpError(error.message)
+        })
+    }, []);
 
     return (
         <div className="row g-3">
-                {
-                    sampleData.map(venue=>  <SportsTile venue={venue} key={venue.venueId} />)
-                }
+            {(props.selectedVenue !== "") ?
+                venues.filter(venue => venue.businessName === props.selectedVenue).map((venue, key) => <SportsTile venue={venue} key={key}  />) :
+                venues.map((venue, key) => <SportsTile venue={venue} key={key}  />)
+
+
+            }
         </div>)
 }

@@ -14,7 +14,7 @@ export const Heros = () => {
 
                 </p>
                 <div className="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-                    <Link type="button" className="btn btn-dark btn-lg px-4 me-sm-3" to="/search">
+                    <Link type="button" className="btn btn-primary btn-lg px-4 me-sm-3" to="/search">
                         Get started
                     </Link>
 

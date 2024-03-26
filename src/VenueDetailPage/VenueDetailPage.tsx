@@ -1,121 +1,82 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { MapView } from "./Components/MapView";
 import { GalleryView } from "./Components/GalleryView";
 import Venue from "../Models/Venue";
-import MonthlyAvailabiltyModel from "../Models/MonthlyAvailabiltyModel";
+import MonthlyAvailabiltyModel from "../Models/WeeklyAvailabiltyModel";
 import { WeeklyAvailabilityChart } from "./Components/WeeklyAvailabilityChart";
-
-
-
-
-
-
+import { TimeSlot } from "./Components/TimeSlot";
+import { Features } from "./Components/Features";
+import "./../SearchPage/Components/Search.css";
+import { DayAvailability } from "./Components/DayAvailability";
+import { Booking } from "./Components/Booking";
+import { Link } from "react-router-dom";
 
 export const VenueDetailPage = () => {
     const [isGalleryView, setIsGalleryView] = useState(false);
+    const [viewWeeklyData, setViewWeeklyData] = useState(false);
+
+
+    const [selectedVenue, setSelectedVenue] = useState<Venue>();
+
     function toggleMapGallery() {
         setIsGalleryView(!isGalleryView);
-    
+
+    }
+    function toggleWeeklyData() {
+        setViewWeeklyData(!viewWeeklyData);
+
     }
 
-    const date = "3/12/2024";
-    const day = "Tue";
-    const venue = new Venue(
-            0,
-            "Golden Grove",
-            "123 Main Street",
-            "Fictionville"
-    )
 
 
-    const monthlyavailability = new MonthlyAvailabiltyModel(0, "2024", "03", [{
-        date: "3/13/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    },{
-        date: "3/14/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    },
-    {
-        date: "3/15/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    },
-    {
-        date: "3/16/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    },
-    {
-        date: "3/17/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    },
-    {
-        date: "3/18/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    },
-    {
-        date: "3/19/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    },
-    {
-        date: "3/20/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    },
-    {
-        date: "3/21/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    },
-    {
-        date: "3/22/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    },
-    {
-        date: "3/23/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    },
-    {
-        date: "3/24/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    },
-    {
-        date: "3/25/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    },
-    {
-        date: "3/26/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    },
-    {
-        date: "3/27/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    },
-    {
-        date: "3/28/2024",
-        hourlyAvailability: [{ time: "8am", availability: 10 },{ time: "8am", availability: 10 },{ time: "9am", availability: 10 },{ time: "10am", availability: 10 }]
-    }
-    
-    ]);
-    
+    const venueId = window.location.pathname.split("/")[2];
 
-   
+    useEffect(() => {
+        const fetchVenue = async () => {
+            const url: string = `http://localhost:8080/api/venues/details?venueId=${venueId}`;
+            const requestOptions = {
+                method: "GET",
+                headers: {
+                    "content-type": "application/json"
+                }
+            }
+            const response = await fetch(url, requestOptions);
+            const responseJson = await response.json();
+            const loadedVenue: Venue = {
+                venueId: responseJson.venueId,
+                businessName: responseJson.businessName,
+                city: responseJson.city,
+                address: responseJson.address,
+                availabilityData: responseJson.availability
+            }
+            console.log(loadedVenue);
+            setSelectedVenue(loadedVenue);
+
+        };
+
+        fetchVenue().catch(() => { })
+    }, [])
 
     return (<div>
-
-        
-        <div className="container-fluid mt-3 mb-3" style={{position: "relative", maxHeight: "500px", overflow: "auto" }}>
-        <div className="row">
-            <div className="col-md-12 d-flex justify-content-center mt-3 mb-3" style={{position: "absolute"}}>
-                <button className="btn btn-dark" type="button" style={{ zIndex: 1 }} onClick={toggleMapGallery}>{isGalleryView ? "Show Map" : "Show Gallery"}</button>
+        <div className="container-fluid mt-3 mb-3" style={{ position: "relative", maxHeight: "500px", overflow: "auto" }}>
+            <div className="row">
+                <div className="col-md-12 d-flex justify-content-center mt-3 mb-3" style={{ position: "absolute" }}>
+                    <button className="btn btn-primary" type="button" style={{ zIndex: 1 }} onClick={toggleMapGallery}>{isGalleryView ? "Show Map" : "Show Gallery"}</button>
+                </div>
             </div>
-        </div>
-        {
-            !isGalleryView?
-            <MapView/>
-            :
-            <GalleryView/>
-        
-        }
-        </div>
-        <WeeklyAvailabilityChart/>
-    </div>
+            {
+                !isGalleryView ?
+                    <MapView />
+                    :
+                    <GalleryView />
 
+            }
+
+        </div>
+        <div className="fixed-bottom d-flex justify-content-center" style={{ marginBottom: "70px" }}>
+            <Link to="/booking" type="button" className="btn btn-danger btn-lg">Book Court</Link>
+        </div>
+        <Features />
+    </div>
     );
 }

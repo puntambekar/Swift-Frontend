@@ -24,52 +24,73 @@ export const WeeklyAvailabilityChart = () => {
     }
   };
 
-
+  const handleDayClick = (dayOffset: number) => {
+    setSelectedDay(dayOffset);
+  };
 
   return (
-    <div className="container mt-3">
+    <div className="container-fluid mt-3">
       <div className="row">
-        <div className="col">
-          <div className="d-flex justify-content-between align-items-center">
-            <button className="btn btn-dark mb-2" onClick={goToPreviousWeek}>
-              Previous Week
-            </button>
-            <h6 className="mb-2">Week of {startDate.format('MMMM DD, YYYY')}</h6>
-            <button className="btn btn-dark mb-2" onClick={goToNextWeek}>
-              Next Week
-            </button>
-          </div>
-          <div className="row">
-            <div className="col">
-              {[0, 1, 2, 3, 4, 5, 6].map((dayOffset: number) => {
-                const day = startDate.clone().add(dayOffset, 'days');
-                return (
-                  <div key={dayOffset} className="mb-3">
-                    <div className="accordion">
-                      <div className="accordion-item">
-                        <h2 className="accordion-header" id={`headingDay${dayOffset}`}>
-                          <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={`#collapseDay${dayOffset}`} aria-expanded={selectedDay === dayOffset} aria-controls={`collapseDay${dayOffset}`}>
-                            <div className="text-center">
-                              {day.format('dddd')}
-                              <br />
-                              {day.format('DD/MM/YYYY')}
-                            </div>
-                          </button>
-                        </h2>
-                        <div id={`collapseDay${dayOffset}`} className="accordion-collapse collapse"aria-labelledby={`headingDay${dayOffset}`} data-bs-parent={`#headingDay${dayOffset}`}>
-                          <div className="accordion-body">
-                          <TimeSlot/>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+        <div className="col-sm-4 d-flex justify-content-start align-items-center">
+          <button className="btn btn-primary mb-2" onClick={goToPreviousWeek}>
+            Previous Week
+          </button>
+        </div>
+        <div className="col-sm-4 d-flex justify-content-center align-items-center">
+          <h6 className="mb-2">Week of {startDate.format('MMMM DD, YYYY')}</h6>
+        </div>
+        <div className="col-sm-4 d-flex justify-content-end align-items-center">
+          <button className="btn btn-primary mb-2" onClick={goToNextWeek}>
+            Next Week
+          </button>
         </div>
       </div>
-    </div>
+
+      <div>
+       
+        <ul className="nav nav-pills mb-3 flex-column flex-sm-row nav-fill" id="myTab0" role="tablist">
+            {[0, 1, 2, 3, 4, 5, 6].map((dayOffset: number) => {
+              const day = startDate.clone().add(dayOffset, 'days');
+              return (
+                <li key={dayOffset} className="nav-item" role="presentation">
+                  <button
+                   data-mdb-tab-init
+                    className={`nav-link ${selectedDay === dayOffset ? 'active' : ''} flex-sm-fill text-sm-center`}
+                    id={`tab-${dayOffset}`}
+                    data-mdb-target={`#tab${dayOffset}`}
+                    onClick={() => handleDayClick(dayOffset)}
+                    role="tab"
+                  >
+                    {day.format('dddd')}
+                    <br />
+                    {day.format('DD/MM/YYYY')}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+       
+        <div className="tab-content justify-content-center" id="myTabContent0">
+            {[0, 1, 2, 3, 4, 5, 6].map((dayOffset: number) => {
+              const day = startDate.clone().add(dayOffset, 'days');
+              return (
+                <div
+                  key={dayOffset}
+                  className={`tab-pane fade ${selectedDay === dayOffset ? 'show active' : ''}`}
+                  id={`tab${dayOffset}`}
+                  role="tabpanel"
+                >
+                  <TimeSlot day={day} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+     
+
+
+
   );
 };
+
