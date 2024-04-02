@@ -2,13 +2,8 @@ import { useEffect, useState } from "react"
 import { MapView } from "./Components/MapView";
 import { GalleryView } from "./Components/GalleryView";
 import Venue from "../Models/Venue";
-import MonthlyAvailabiltyModel from "../Models/WeeklyAvailabiltyModel";
-import { WeeklyAvailabilityChart } from "./Components/WeeklyAvailabilityChart";
-import { TimeSlot } from "./Components/TimeSlot";
 import { Features } from "./Components/Features";
 import "./../SearchPage/Components/Search.css";
-import { DayAvailability } from "./Components/DayAvailability";
-import { Booking } from "./Components/Booking";
 import { Link } from "react-router-dom";
 
 export const VenueDetailPage = () => {
@@ -49,7 +44,7 @@ export const VenueDetailPage = () => {
                 address: responseJson.address,
                 availabilityData: responseJson.availability
             }
-            console.log(loadedVenue);
+           
             setSelectedVenue(loadedVenue);
 
         };
@@ -74,7 +69,7 @@ export const VenueDetailPage = () => {
 
         </div>
         <div className="fixed-bottom d-flex justify-content-center" style={{ marginBottom: "70px" }}>
-            <Link to="/booking" type="button" className="btn btn-danger btn-lg">Book Court</Link>
+            <Link to={`/booking/${venueId}`} type="button" className="btn btn-danger btn-lg">Book Court</Link>
         </div>
         <Features />
     </div>

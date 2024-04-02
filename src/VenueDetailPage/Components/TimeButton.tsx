@@ -1,27 +1,34 @@
-export const TimeButton:React.FC<{time:string,courtAvailable:number}>=(props)=>{
+import { v4 as uuidv4 } from 'uuid';
+import React, { useState } from 'react';
+
+interface TimeButtonProps {
+    time: string;
+    courtAvailable: number;
+    onClick: () => void;
+    isClicked?: boolean;
+}
+
+export const TimeButton: React.FC<TimeButtonProps> = (props) => {
     const date = new Date(props.time);
     const time = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-    return (<div className="btn-group" role="group" aria-label="Button group with nested dropdown">
-    <button type="button" className="btn btn-outline-primary">{time}</button>
-    {/* Add a spacer */}
-    <div className="spacer"></div>
-    <div className="btn-group dropend" role="group">
-      <button type="button" className="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        {props.courtAvailable} courts available
-      </button>
-      <ul className="dropdown-menu">
-        <li><a className="dropdown-item" href="#">1</a></li>
-        <li><a className="dropdown-item" href="#">2</a></li>
-        <li><a className="dropdown-item" href="#">3</a></li>
-        <li><a className="dropdown-item" href="#">4</a></li>
-        <li><a className="dropdown-item" href="#">5</a></li>
-        <li><a className="dropdown-item" href="#">6</a></li>
-        <li><a className="dropdown-item" href="#">7</a></li>
-        <li><a className="dropdown-item" href="#">8</a></li>
-        <li><a className="dropdown-item" href="#">9</a></li>
-        <li><a className="dropdown-item" href="#">10</a></li>
-      </ul>
-    </div>
-</div>)
-}
+    const buttonKey = uuidv4();
+
+    return (
+        <div>
+            <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <input 
+                    type="checkbox" 
+                    className="btn-check" 
+                    id={`btncheck${buttonKey}`} 
+                    autoComplete="off"
+                    checked={props.isClicked || false} // Provide a default value
+                    onChange={props.onClick} // Call onClick handler provided by parent
+                />
+                <label className="btn btn-outline-primary rounded-pill" htmlFor={`btncheck${buttonKey}`}>
+                    {time}
+                </label>
+            </div>
+        </div>
+    );
+};

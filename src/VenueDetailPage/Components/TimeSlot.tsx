@@ -1,29 +1,80 @@
-import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react"
-import MonthlyAvailabiltyModel from "../../Models/WeeklyAvailabiltyModel"
-import moment from "moment"
+import moment from "moment";
+import { useState, useEffect } from "react";
+import Venue from "../../Models/Venue";
+import { TimeButton } from "./TimeButton";
+import { ModalSummary } from "./ModalSummary";
 
-export const TimeSlot:React.FC<{day:moment.Moment}> = (props) => {
-
-  return (<div className="btn-group" role="group" aria-label="Button group with nested dropdown">
-  <button type="button" className="btn btn-outline-primary">8AM : 10 available {props.day.date()}</button>
-  
-
-   <div className="btn-group dropend" role="group">
-    <button type="button" className="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      Select courts
-    </button>
-    <ul className="dropdown-menu">
-      <li><a className="dropdown-item" href="#">1</a></li>
-      <li><a className="dropdown-item" href="#">2</a></li>
-      <li><a className="dropdown-item" href="#">3</a></li>
-      <li><a className="dropdown-item" href="#">4</a></li>
-      <li><a className="dropdown-item" href="#">5</a></li>
-      <li><a className="dropdown-item" href="#">6</a></li>
-      <li><a className="dropdown-item" href="#">7</a></li>
-      <li><a className="dropdown-item" href="#">8</a></li>
-      <li><a className="dropdown-item" href="#">9</a></li>
-      <li><a className="dropdown-item" href="#">10</a></li>
-    </ul>
-  </div>
-</div>)
+interface TimeSlotProps {
+    day: moment.Moment;
+    selectedVenue: Venue;
+ 
 }
+
+export const TimeSlot: React.FC<TimeSlotProps> = (props) => {
+    
+   
+    const avail = props.selectedVenue.availabilityData.dailyAvailability.find(avail => moment(avail.date).isSame(props.day));
+    const [clickedButtons, setClickedButtons] = useState<{ [key: string]: boolean }>({});
+    const [showModal, setShowModal] = useState(false);
+    const [disableProceed,setDisableProceed] = useState(true);
+
+    // Ensure proper initialization of clickedButtons
+    useEffect(() => {
+        if (avail) {
+            const initialClickedButtons: any = {};
+            avail.hourlyAvailability.forEach(a => {
+                initialClickedButtons[a.time] = false;
+            });
+            setClickedButtons(initialClickedButtons);
+        }
+    }, [avail]);
+
+    // Function to handle button click
+    const handleButtonClick = (time: string) => {
+        setClickedButtons(prevState => ({
+            ...prevState,
+            [time]: !prevState[time]
+        }));
+    };
+    const openModal = () => {
+        setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+    };
+
+    const selectedSlots: string[] = Object.entries(clickedButtons).filter(([time, clicked]) => clicked).map(([time]) => new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    
+    useEffect(() => {
+        setDisableProceed(selectedSlots.length === 0);
+    }, [selectedSlots]);
+
+
+    return (
+        <div className="container">
+            <div className="row">
+                {avail && avail.hourlyAvailability && avail.hourlyAvailability.map((a, key) => (
+                    <div className="col-6 col-md-3 mb-3" key={key}>
+                        <TimeButton
+                            time={a.time}
+                            courtAvailable={a.courtAvailable}
+                            onClick={() => handleButtonClick(a.time)}
+                            isClicked={clickedButtons[a.time]} />
+                    </div>
+                ))}
+            </div>
+            <div className="row">
+            <div className="col-12 text-center">
+                    <button type="button" className="btn btn-primary" disabled={disableProceed} onClick={openModal}>
+                        Proceed
+                    </button>
+                </div>
+                {showModal && (
+                    <ModalSummary selectedSlots={selectedSlots} closeModal={closeModal}  venueId = {props.selectedVenue.venueId} selectedDate={props.day.format("YYYY-MM-DD")}/>
+                )}
+            </div>
+            {showModal && <div className="modal-backdrop fade show"></div>}
+        </div>
+    );
+};

@@ -1,61 +1,54 @@
-import { useState } from "react";
-import { DayAvailability } from "./DayAvailability";
+import { useEffect, useState } from "react";
 import Venue from "../../Models/Venue";
+import { WeeklyAvailabilityChart } from "./WeeklyAvailabilityChart";
 
-export const Booking:React.FC<{selectedVenue:Venue|undefined}> = (props)=>{
-    const [displayError,setDisplayError] = useState(false);
-    const [selectedDate, setSelectedDate] = useState("");
-    const [viewDailyData, setViewDailyData] = useState(false);
-    
+export const Booking: React.FC<{}> = () => {
 
-    function dateSearchHandler(){
-        if(selectedDate){
-            setViewDailyData(true);
-            setDisplayError(false);
+    const [selectedVenue, setSelectedVenue] = useState<Venue>();
+
+    const venueId = window.location.pathname.split("/")[2];
+    const fetchVenue = async () => {
+        const url: string = `http://localhost:8080/api/venues/details?venueId=${venueId}`;
+        const requestOptions = {
+            method: "GET",
+            headers: {
+                "content-type": "application/json"
+            }
+        }
+        const response = await fetch(url, requestOptions);
+        const responseJson = await response.json();
+      
+        const loadedVenue: Venue = {
+            venueId: responseJson.id,
+            businessName: responseJson.businessName,
+            city: responseJson.city,
+            address: responseJson.address,
+            availabilityData: responseJson.availability
+        }
+     
+        setSelectedVenue(loadedVenue);
+
+    };
+
+    useEffect(() => {
         
-        } else{setDisplayError(true);}
-       
+        fetchVenue().catch(() => { })
+    }, [venueId])
 
-    }
 
-    return(<div>
-          <div className="container">
-            <form className="row align-items-center">
-                <div className="col-auto">
-                    Select date:
-                </div>
-                <div className="col">
-                    <div className="input-group">
-                        <label className="visually-hidden" htmlFor="date">Date</label>
-                        <input
-                             type="date"
-                            className={`form-control ${displayError ? 'is-invalid  shake' : ''}`}
-                            id="date"
-                            style={{ maxWidth: "200px" }} // Set maximum width here
-                            placeholder="Date..."
-                            aria-label="date"
-                            onBlur={(e) => (e.target.type = 'text')}
-                            onFocus={(e) => (e.target.type = 'date')}
-                            onChange={(e) => setSelectedDate(e.target.value)}
-                            min={new Date().toISOString().split('T')[0]}
-                            max={(new Date(new Date().getTime() + 90 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0]}
-                            required
-                        />
-                        <button type="button" className="btn btn-primary rounded-circle ms-2"
-                            style={{ width: '50px', height: '50px' }} onClick={dateSearchHandler}>
-                            <i className="bi bi-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
+
+    return (<div className="container mt-3">
+        <div className="row">
+            <div className="col">
+                {
+                   selectedVenue &&  <WeeklyAvailabilityChart selectedVenue={selectedVenue} />
+                }
+               
+            </div>
         </div>
-        {viewDailyData&&<div>
-           <DayAvailability date={selectedDate} venue={props.selectedVenue}/>
-        </div>}
-        {/* <div className="col-auto">
-                    <button type="button" className="btn btn-outline-primary" onClick={toggleWeeklyData}>Check weekly availability</button>
-                </div>
-        {viewWeeklyData &&
-            <WeeklyAvailabilityChart />} */}
-    </div>);
+        
+    </div>
+    );
 }
+
+

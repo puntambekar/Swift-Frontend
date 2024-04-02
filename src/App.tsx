@@ -26,7 +26,7 @@ function App() {
         <Route path="/page" element={<div>Page</div>} />
         <Route path="/about" element={<div>About</div>} />
         <Route path="/contact" element={<div>Contact</div>} />
-        <Route path="/booking" element={<Booking selectedVenue={undefined}/>} />
+        <Route path="/booking/:venueId" element={<Booking/>} />
         <Route path="/view/:venueId" element={<VenueDetailPage/>}></Route>
 
       </Routes>

@@ -1,96 +1,201 @@
-import { useState } from "react";
-import moment from "moment";
+import { useState, useEffect, useRef } from "react";
+import moment, { Moment } from "moment";
 import { TimeSlot } from "./TimeSlot";
+import { TimeButton } from "./TimeButton";
+import Venue from "../../Models/Venue";
+import { Spinner } from "../../Utils/Spinner";
+import { v4 as uuidv4 } from 'uuid';
+import { useWindowSize } from "@react-hook/window-size";
 
-export const WeeklyAvailabilityChart = () => {
-  const today = moment().startOf('day');
+export const WeeklyAvailabilityChart: React.FC<{ selectedVenue: Venue }> = (props) => {
   const maxDate = moment().add(3, 'months').startOf('week');
-  const [startDate, setStartDate] = useState(today.isAfter(maxDate) ? maxDate : today);
-  const [selectedDay, setSelectedDay] = useState<number>(-1); // Initialize to -1
+  const [today, setToday] = useState(moment().startOf('day'));
+  const [startDate, setStartDate] = useState<Moment>(today.isAfter(maxDate) ? maxDate : today);
+  const [selectedDay, setSelectedDay] = useState<number>(-1);
+  const [userDate, setUserDate] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // State to manage loading
 
-  const goToPreviousWeek = () => {
-    const previousWeekStartDate = startDate.clone().subtract(1, 'week');
-    if (previousWeekStartDate.isSameOrAfter(today)) {
-      setStartDate(previousWeekStartDate);
-      setSelectedDay(-1); // Reset selected day when changing week
+  const [windowWidth, windowHeight] = useWindowSize();
+
+  // const goToPreviousWeek = () => {
+  //   const previousWeekStartDate = startDate.clone().subtract(1, 'week');
+  //   if (previousWeekStartDate.isSameOrAfter(today)) {
+  //     setStartDate(previousWeekStartDate);
+  //     setSelectedDay(-1);
+  //   }
+  // };
+
+
+  // const goToNextWeek = () => {
+  //   const nextWeekStartDate = startDate.clone().add(1, 'week');
+  //   if (nextWeekStartDate.isBefore(maxDate, 'week')) {
+  //     setStartDate(nextWeekStartDate);
+  //     setSelectedDay(-1);
+  //   }
+  // };
+
+  const goToPreviousDay = () => {
+    const previousDay = startDate.clone().subtract(1, 'day');
+    if (previousDay.isSameOrAfter(today)) {
+      setStartDate(previousDay);
+      setSelectedDay(-1);
+    }
+  };
+  
+  const goToNextDay = () => {
+    const nextDay = startDate.clone().add(1, 'day');
+    if (nextDay.isBefore(maxDate)) {
+      setStartDate(nextDay);
+      setSelectedDay(-1);
+    }
+  };
+  
+
+  let itemsToDisplay: number;
+  if (windowWidth >= 768) {
+      itemsToDisplay = 7; // Display all items on larger screens
+  } else if (windowWidth >= 576) {
+      itemsToDisplay = 5; // Display up to 5 items on medium screens
+  } else {
+      itemsToDisplay = 2; // Display up to 3 items on small screens
+  }
+
+
+  const userDateChange = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const format = "YYYY-MM-DD";
+    const date = moment(userDate, format);
+    if (date.isValid()) {
+      setToday(date.startOf('day'));
+      setStartDate(date.startOf('day'))
+      setSelectedDay(-1); // Reset selected tab
     }
   };
 
-  const goToNextWeek = () => {
-    const nextWeekStartDate = startDate.clone().add(1, 'week');
-    if (nextWeekStartDate.isBefore(maxDate, 'week')) {
-      setStartDate(nextWeekStartDate);
-      setSelectedDay(-1); // Reset selected day when changing week
-    }
-  };
+
+
 
   const handleDayClick = (dayOffset: number) => {
+    setIsLoading(true); // Set loading to true when tab is changed
     setSelectedDay(dayOffset);
+    // Simulating data fetching delay
+    setTimeout(() => {
+      setIsLoading(false); // Set loading to false after data fetching
+    }, 1000); // Adjust time as needed based on your data fetching
   };
+
 
   return (
     <div className="container-fluid mt-3">
-      <div className="row">
+        <form onSubmit={userDateChange} className="col-sm-4 d-flex justify-content-center align-items-center">
+
+<label  htmlFor="date"><i>Go to:</i></label>
+<input
+  type="date"
+  className={`form-control border-0 `}
+  id="date"
+  style={{ maxWidth: "200px" }}
+  placeholder="Date..."
+  aria-label="date"
+  onBlur={(e) => (e.target.type = 'text')}
+  onFocus={(e) => (e.target.type = 'date')}
+  onChange={(e) => setUserDate(e.target.value)}
+  min={new Date().toISOString().split('T')[0]}
+  max={(new Date(new Date().getTime() + 90 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0]}
+  required
+/>
+<button type="submit" className="btn btn-primary rounded-circle ms-2"
+  style={{ width: '50px', height: '50px' }}>
+  <i className="bi bi-search"></i>
+</button>
+
+</form>
+      {/* <div className="row">
         <div className="col-sm-4 d-flex justify-content-start align-items-center">
           <button className="btn btn-primary mb-2" onClick={goToPreviousWeek}>
             Previous Week
           </button>
         </div>
-        <div className="col-sm-4 d-flex justify-content-center align-items-center">
-          <h6 className="mb-2">Week of {startDate.format('MMMM DD, YYYY')}</h6>
-        </div>
+        <form onSubmit={userDateChange} className="col-sm-4 d-flex justify-content-center align-items-center">
+
+          <label className="visually-hidden" htmlFor="date">Date</label>
+          <input
+            type="date"
+            className={`form-control border-0 `}
+            id="date"
+            style={{ maxWidth: "200px" }}
+            placeholder="Date..."
+            aria-label="date"
+            onBlur={(e) => (e.target.type = 'text')}
+            onFocus={(e) => (e.target.type = 'date')}
+            onChange={(e) => setUserDate(e.target.value)}
+            min={new Date().toISOString().split('T')[0]}
+            max={(new Date(new Date().getTime() + 90 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0]}
+            required
+          />
+          <button type="submit" className="btn btn-primary rounded-circle ms-2"
+            style={{ width: '50px', height: '50px' }}>
+            <i className="bi bi-search"></i>
+          </button>
+
+        </form>
         <div className="col-sm-4 d-flex justify-content-end align-items-center">
           <button className="btn btn-primary mb-2" onClick={goToNextWeek}>
             Next Week
           </button>
         </div>
+      </div> */}
+<div>
+  <ul className="nav nav-pills mb-3  flex-sm-row nav-fill" style={{ marginTop: '40px', flexWrap: 'nowrap', overflowX: 'auto' }} id="myTab0" role="tablist"  onScroll={goToPreviousDay}>
+    <span className="nav-item" style={{ display: 'flex', alignItems: 'center' }}>
+    <i className="bi bi-chevron-left" style={{ fontSize: '1.5em', cursor: 'pointer' }}  onClick={goToPreviousDay}></i>
+    </span>
+    {[0, 1, 2, 3, 4, 5, 6].slice(0, itemsToDisplay).map((dayOffset: number) => {
+      const day = startDate.clone().add(dayOffset, 'days');
+      return (
+        <li key={dayOffset} className="nav-item" role="presentation">
+          <button
+            data-mdb-tab-init
+            className={`nav-link ${selectedDay === dayOffset ? 'active' : ''} flex-sm-fill text-sm-center`}
+            id={`tab-${dayOffset}`}
+            data-mdb-target={`#tab${dayOffset}`}
+            onClick={() => handleDayClick(dayOffset)}
+            role="tab"
+          >
+            {day.format('dddd')}
+            <br />
+            {day.format('MM/DD/YYYY')}
+          </button>
+        </li>
+      );
+    })}
+    <span className="nav-item" style={{ display: 'flex', alignItems: 'center' }}>
+    <i className="bi bi-chevron-right" style={{ fontSize: '1.5em', cursor: 'pointer' }} onClick={goToNextDay}></i>
+    </span>
+  </ul>
+</div>
+
+<hr/>
+      <div className="tab-content justify-content-center " id="myTabContent0" style={{ marginTop: '40px' }}>
+        {[0, 1, 2, 3, 4, 5, 6].map((dayOffset: number) => {
+          const day = startDate.clone().add(dayOffset, 'days');
+          const key = uuidv4();
+          return (
+            <div
+              key={dayOffset}
+              className={`tab-pane  ${selectedDay === dayOffset ? 'show active' : ''}`}
+              id={`tab${dayOffset}`}
+              role="tabpanel"
+            >
+              {isLoading ? <Spinner /> :
+                (
+                  <TimeSlot day={day} selectedVenue={props.selectedVenue} key={dayOffset} />
+                )}
+            </div>
+          );
+        })}
       </div>
 
-      <div>
-       
-        <ul className="nav nav-pills mb-3 flex-column flex-sm-row nav-fill" id="myTab0" role="tablist">
-            {[0, 1, 2, 3, 4, 5, 6].map((dayOffset: number) => {
-              const day = startDate.clone().add(dayOffset, 'days');
-              return (
-                <li key={dayOffset} className="nav-item" role="presentation">
-                  <button
-                   data-mdb-tab-init
-                    className={`nav-link ${selectedDay === dayOffset ? 'active' : ''} flex-sm-fill text-sm-center`}
-                    id={`tab-${dayOffset}`}
-                    data-mdb-target={`#tab${dayOffset}`}
-                    onClick={() => handleDayClick(dayOffset)}
-                    role="tab"
-                  >
-                    {day.format('dddd')}
-                    <br />
-                    {day.format('DD/MM/YYYY')}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-       
-        <div className="tab-content justify-content-center" id="myTabContent0">
-            {[0, 1, 2, 3, 4, 5, 6].map((dayOffset: number) => {
-              const day = startDate.clone().add(dayOffset, 'days');
-              return (
-                <div
-                  key={dayOffset}
-                  className={`tab-pane fade ${selectedDay === dayOffset ? 'show active' : ''}`}
-                  id={`tab${dayOffset}`}
-                  role="tabpanel"
-                >
-                  <TimeSlot day={day} />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-     
-
-
-
+    </div>
   );
 };
-
