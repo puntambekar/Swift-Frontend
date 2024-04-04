@@ -6,7 +6,7 @@ export const Counter: React.FC<{ max: number }> = (props) => {
     const handleIncrement = () => {
         if (count < props.max) {
             setCount(count + 1);
-        
+
         }
     };
 
@@ -18,16 +18,17 @@ export const Counter: React.FC<{ max: number }> = (props) => {
 
     return (
         <div className="d-flex align-items-center">
-        <button onClick={handleDecrement} className="btn btn-dark rounded-circle d-flex justify-content-center align-items-center"
-            style={{ width: '30px', height: '30px', padding: '0' }}>-</button>
-    
-    <span className="mx-2 d-flex justify-content-center" style={{ width: '30px' }}>{count}</span>
+            <button onClick={handleDecrement} className="btn btn-dark rounded-circle d-flex justify-content-center align-items-center"
+                style={{ width: '30px', height: '30px', padding: '0' }}>-</button>
 
-    
-        <button onClick={handleIncrement} className="btn btn-dark rounded-circle d-flex justify-content-center align-items-center"
-            style={{ width: '30px', height: '30px', padding: '0' }}>+</button>
-    </div>
-    
+            <span className="mx-2 d-flex justify-content-center" style={{ width: '30px' }}>{count}</span>
+
+
+            <button onClick={handleIncrement} className="btn btn-dark rounded-circle d-flex justify-content-center align-items-center"
+                style={{ width: '30px', height: '30px', padding: '0' }}>+</button>
+                
+        </div>
+
 
 
     );

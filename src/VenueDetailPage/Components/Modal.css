@@ -1,0 +1,18 @@
+.modal-dialog {
+    width: 600px; /* Set the width of the modal */
+    max-width: 100%; /* Ensure the modal does not exceed the viewport width */
+}
+
+.modal-content {
+    height: 400px; /* Set the height of the modal */
+}
+
+.modal-body {
+    height: calc(100% - 60px); /* Adjust the height of the body to fit the content */
+    overflow-y: auto; /* Enable vertical scrolling for the body */
+}
+.modal-footer {
+    position: sticky;
+    bottom: 0;
+    background-color: white; /* Ensure the footer is visible */
+}
