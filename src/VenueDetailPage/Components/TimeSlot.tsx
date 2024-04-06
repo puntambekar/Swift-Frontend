@@ -2,7 +2,8 @@ import moment from "moment";
 import { useState, useEffect } from "react";
 import Venue from "../../Models/Venue";
 import { TimeButton } from "./TimeButton";
-import { ModalSummary } from "./ModalSummary";
+import { Modals } from "./Modals";
+
 
 interface TimeSlotProps {
     day: moment.Moment;
@@ -71,7 +72,7 @@ export const TimeSlot: React.FC<TimeSlotProps> = (props) => {
                     </button>
                 </div>
                 {showModal && (
-                    <ModalSummary selectedSlots={selectedSlots} closeModal={closeModal}  venueId = {props.selectedVenue.venueId} selectedDate={props.day.format("YYYY-MM-DD")}/>
+                    <Modals selectedSlots={selectedSlots} closeModal={closeModal}  venueId = {props.selectedVenue.venueId} selectedDate={props.day.format("YYYY-MM-DD")}/>
                 )}
             </div>
             {showModal && <div className="modal-backdrop fade show"></div>}
