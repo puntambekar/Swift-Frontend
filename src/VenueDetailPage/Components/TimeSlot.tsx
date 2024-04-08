@@ -72,7 +72,7 @@ export const TimeSlot: React.FC<TimeSlotProps> = (props) => {
                     </button>
                 </div>
                 {showModal && (
-                    <Modals selectedSlots={selectedSlots} closeModal={closeModal}  venueId = {props.selectedVenue.venueId} selectedDate={props.day.format("YYYY-MM-DD")}/>
+                    <Modals selectedSlots={selectedSlots} closeModal={closeModal}  venue = {props.selectedVenue} selectedDate={props.day.format("YYYY-MM-DD")}/>
                 )}
             </div>
             {showModal && <div className="modal-backdrop fade show"></div>}

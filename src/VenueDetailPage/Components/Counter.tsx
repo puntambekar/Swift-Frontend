@@ -1,20 +1,21 @@
 import { useState } from "react";
 
-export const Counter: React.FC<{ max: number }> = (props) => {
+export const Counter: React.FC<{ max: number,index:number,handleCounter:(courtBooked:number,index:number)=>void }> = (props) => {
     const [count, setCount] = useState(1);
 
     const handleIncrement = () => {
         if (count < props.max) {
-            setCount(count + 1);
-
+          setCount(count + 1);
+          props.handleCounter(count + 1, props.index); // Call the callback function
         }
-    };
+      };
 
-    const handleDecrement = () => {
+      const handleDecrement = () => {
         if (count > 1) {
-            setCount(count - 1);
+          setCount(count - 1);
+          props.handleCounter(count - 1, props.index); // Call the callback function
         }
-    };
+      };
 
     return (
         <div className="d-flex align-items-center">

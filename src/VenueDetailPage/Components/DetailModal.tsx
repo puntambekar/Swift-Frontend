@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { ReviewModal } from "./ReviewModal";
+import Venue from "../../Models/Venue";
 
 export const DetailModal:React.FC<{showReviewModal:boolean,handleBackToSummaryModal:()=>void, 
     handleNextToReviewModal:()=>void,closeModal: () => void,handleBackToDetailModal:()=>void
-    filteredSlots: { time: string, courtAvailable: number }[] | undefined}
+    filteredSlots: { time: string, courtAvailable: number,courtBooked:number }[] | undefined,venue:Venue,selectedDate: string}
     > = (props)=>{
 
       
@@ -58,7 +59,8 @@ export const DetailModal:React.FC<{showReviewModal:boolean,handleBackToSummaryMo
         <div className="modal-footer">
             <button type="button" className="btn btn-secondary" onClick={props.handleBackToSummaryModal}>Back</button>
             <button type="submit" onClick={handleSubmitAndNextToReview} className="btn btn-primary">Next</button>
-        </div></>:<ReviewModal filteredSlots={props.filteredSlots} userData={userData} handleBackToDetailModal={props.handleBackToDetailModal} closeModal={props.closeModal}/>
+        </div></>:<ReviewModal filteredSlots={props.filteredSlots} userData={userData} handleBackToDetailModal={props.handleBackToDetailModal} 
+        closeModal={props.closeModal} venue={props.venue} selectedDate={props.selectedDate}/>
     }</>
 )
 }

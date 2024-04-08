@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Counter } from "./Counter";
 import { DetailModal } from "./DetailModal";
 import { ReviewModal } from "./ReviewModal";
+import Venue from "../../Models/Venue";
 
 
 const StyledTd = styled.td`
@@ -14,13 +15,31 @@ white-space: nowrap;
 }
 `;
 export const SummaryModal: React.FC<{
-    filteredSlots: { time: string, courtAvailable: number }[] | undefined,
-    handleRowDeletion: (index: number) => void, closeModal: () => void
+    filteredSlots: { time: string, courtAvailable: number, courtBooked: number }[] | undefined;
+    venue: Venue;
+    selectedDate: string;
+    handleRowDeletion: (index: number) => void;
+    closeModal: () => void;
+    updateFilteredSlots: (updatedFilteredSlots: { time: string, courtAvailable: number, courtBooked: number }[]) => void;
 }> = (props) => {
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [showReviewModal, setShowReviewModal] = useState(false);
+  
+
+    const handleCounter=(courtBooked:number,index:number)=>{
+        if (props.filteredSlots) {
+            const updatedFilteredSlots = props.filteredSlots.map((slot, i) => {
+                if (i === index) {
+                    return { ...slot, courtBooked: courtBooked };
+                }
+                return slot;
+            });
+            props.updateFilteredSlots(updatedFilteredSlots);
+        }
+    }
 
     const handleNextToDetailModal = () => {
+        console.log("shre",props.filteredSlots)
         setShowDetailsModal(true);
 
     }
@@ -45,6 +64,7 @@ export const SummaryModal: React.FC<{
     }
 
 
+
     return (<div className="modal-content">
         {!showDetailsModal && !showReviewModal ?
             <><div className="modal-header">
@@ -65,7 +85,7 @@ export const SummaryModal: React.FC<{
                                     <tr key={index}>
                                         <StyledTd>{formatTime(slot.time)}</StyledTd>
 
-                                        <StyledTd><Counter max={slot.courtAvailable} /></StyledTd>
+                                        <StyledTd><Counter max={slot.courtAvailable} index={index} handleCounter={handleCounter} /></StyledTd>
                                         <StyledTd>{slot.courtAvailable} courts</StyledTd>
                                         <StyledTd><i style={{ fontSize: "24px" }} onClick={() => props.handleRowDeletion(index)} className="bi bi-x"></i></StyledTd>
                                     </tr>
@@ -81,6 +101,6 @@ export const SummaryModal: React.FC<{
                 </div></>
             : <DetailModal showReviewModal={showReviewModal} handleBackToSummaryModal={handleBackToSummaryModal} 
             handleBackToDetailModal={handleBackToDetailModal} handleNextToReviewModal={handleNextToReviewModal} 
-            closeModal={props.closeModal} filteredSlots={props.filteredSlots} />}
+            closeModal={props.closeModal} filteredSlots={props.filteredSlots} venue={props.venue} selectedDate={props.selectedDate} />}
     </div>)
 }
