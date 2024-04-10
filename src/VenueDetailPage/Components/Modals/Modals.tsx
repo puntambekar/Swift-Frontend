@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Venue from "../../Models/Venue";
-import { Counter } from "./Counter";
+import Venue from "../../../Models/Venue";
+import { Counter } from "../Counter";
 import styled from "styled-components";
 import "./Modal.css"
 import { SummaryModal } from "./SummaryModal";

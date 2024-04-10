@@ -1,9 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Counter } from "./Counter";
+import { Counter } from "../Counter";
 import { DetailModal } from "./DetailModal";
 import { ReviewModal } from "./ReviewModal";
-import Venue from "../../Models/Venue";
+import Venue from "../../../Models/Venue";
 
 
 const StyledTd = styled.td`
@@ -85,7 +85,7 @@ export const SummaryModal: React.FC<{
                                     <tr key={index}>
                                         <StyledTd>{formatTime(slot.time)}</StyledTd>
 
-                                        <StyledTd><Counter max={slot.courtAvailable} index={index} handleCounter={handleCounter} /></StyledTd>
+                                        <StyledTd><Counter max={slot.courtAvailable} index={index} handleCounter={handleCounter} slot={slot} /></StyledTd>
                                         <StyledTd>{slot.courtAvailable} courts</StyledTd>
                                         <StyledTd><i style={{ fontSize: "24px" }} onClick={() => props.handleRowDeletion(index)} className="bi bi-x"></i></StyledTd>
                                     </tr>

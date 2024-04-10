@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ReviewModal } from "./ReviewModal";
-import Venue from "../../Models/Venue";
+import Venue from "../../../Models/Venue";
 
 export const DetailModal:React.FC<{showReviewModal:boolean,handleBackToSummaryModal:()=>void, 
     handleNextToReviewModal:()=>void,closeModal: () => void,handleBackToDetailModal:()=>void

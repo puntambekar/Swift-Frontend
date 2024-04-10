@@ -2,7 +2,7 @@ import moment from "moment";
 import { useState, useEffect } from "react";
 import Venue from "../../Models/Venue";
 import { TimeButton } from "./TimeButton";
-import { Modals } from "./Modals";
+import { Modals } from "./Modals/Modals";
 
 
 interface TimeSlotProps {
