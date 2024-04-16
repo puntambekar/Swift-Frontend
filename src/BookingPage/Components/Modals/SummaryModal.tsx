@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Counter } from "../Counter";
-import { DetailModal } from "./DetailModal";
+import { Counter } from "../../../Utils/Counter";
+import  DetailModal  from "./DetailModal";
 import { ReviewModal } from "./ReviewModal";
 import Venue from "../../../Models/Venue";
 
@@ -24,9 +24,9 @@ export const SummaryModal: React.FC<{
 }> = (props) => {
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [showReviewModal, setShowReviewModal] = useState(false);
-  
 
-    const handleCounter=(courtBooked:number,index:number)=>{
+
+    const handleCounter = (courtBooked: number, index: number) => {
         if (props.filteredSlots) {
             const updatedFilteredSlots = props.filteredSlots.map((slot, i) => {
                 if (i === index) {
@@ -39,7 +39,7 @@ export const SummaryModal: React.FC<{
     }
 
     const handleNextToDetailModal = () => {
-        console.log("shre",props.filteredSlots)
+        console.log("shre", props.filteredSlots)
         setShowDetailsModal(true);
 
     }
@@ -97,10 +97,12 @@ export const SummaryModal: React.FC<{
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" onClick={props.closeModal}>Back</button>
-                    <button type="button" className="btn btn-primary" onClick={handleNextToDetailModal}>Next</button>
+                    {props.filteredSlots && props.filteredSlots.length > 0 && (
+                        <button type="button" className="btn btn-primary" onClick={handleNextToDetailModal}>Next</button>
+                    )}
                 </div></>
-            : <DetailModal showReviewModal={showReviewModal} handleBackToSummaryModal={handleBackToSummaryModal} 
-            handleBackToDetailModal={handleBackToDetailModal} handleNextToReviewModal={handleNextToReviewModal} 
-            closeModal={props.closeModal} filteredSlots={props.filteredSlots} venue={props.venue} selectedDate={props.selectedDate} />}
+            : <DetailModal showReviewModal={showReviewModal} handleBackToSummaryModal={handleBackToSummaryModal}
+                handleBackToDetailModal={handleBackToDetailModal} handleNextToReviewModal={handleNextToReviewModal}
+                closeModal={props.closeModal} filteredSlots={props.filteredSlots} venue={props.venue} selectedDate={props.selectedDate} />}
     </div>)
 }

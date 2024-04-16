@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import Venue from "../../Models/Venue";
 import { SportsTile } from "./SportsTile";
+import { Spinner } from "../../Utils/Spinner";
+import { Errorpage } from "../../Utils/Errorpage";
 
-export const SportsTiles: React.FC<{ selectedVenue: string, selectedDate: string }> = (props) => {
+export const SportsTiles: React.FC<{ selectedVenue: string, selectedDate: string,handleHttpError:(error:any)=>void }> = (props) => {
 
-    const [httpError, setHttpError] = useState(null);
+    const [IsLoading, setIsLoading] = useState(true);
+    
+
     const [venues, setVenues] = useState<Venue[]>([]);
 
     useEffect(() => {
@@ -28,21 +32,35 @@ export const SportsTiles: React.FC<{ selectedVenue: string, selectedDate: string
             }
 
             setVenues(loadedVenues);
+            setIsLoading(false);
 
 
         }
-        fetchAllVenues().catch((error) => {
-            setHttpError(error.message)
+        fetchAllVenues().catch((error:any) => {
+            setIsLoading(false);
+           props.handleHttpError(error);
         })
     }, []);
 
-    return (
-        <div className="row g-3">
-            {(props.selectedVenue !== "") ?
-                venues.filter(venue => venue.businessName === props.selectedVenue).map((venue, key) => <SportsTile venue={venue} key={key}  />) :
-                venues.map((venue, key) => <SportsTile venue={venue} key={key}  />)
+    
+  if(IsLoading){
+    return(
+        <Spinner/>
+    )
+  }
+
+  const filteredVenues = venues.filter(venue => 
+    venue.businessName.toLowerCase().includes(props.selectedVenue.toLowerCase())
+);
 
 
-            }
-        </div>)
+  return (
+    <div className="row g-3">
+        {filteredVenues.length > 0 ? (
+            filteredVenues.map((venue, key) => <SportsTile venue={venue} key={key} />)
+        ) : (
+            <p>No records found</p>
+        )}
+    </div>
+);
 }

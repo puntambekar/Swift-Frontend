@@ -1,0 +1,25 @@
+.success-page {
+    text-align: center;
+  }
+  
+  .bi-check-circle {
+    font-size: 100px;
+  }
+  
+  .text-success {
+    color: #28a745; /* Green color */
+    
+  }
+
+  .error-page {
+    text-align: center;
+  }
+  
+  .bi-x-circle {
+    font-size: 100px;
+  }
+  
+  .text-danger {
+    color: #dc3545; /* Red color */
+  }
+  

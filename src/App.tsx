@@ -8,7 +8,7 @@ import { HomePage } from './HomePage/HomePage';
 import { SearchPage } from './SearchPage/SearchPage';
 import { VenueDetailPage } from './VenueDetailPage/VenueDetailPage';
 import { Footer } from './NavbarAndFooter/Footer';
-import { Booking } from './VenueDetailPage/Components/Booking';
+import { Booking } from './BookingPage/Booking';
 
 
 

@@ -1,5 +1,6 @@
 class Booking {
     venue: {
+        id:string
         businessName: string;
         address: string;
         city: string;
@@ -16,7 +17,7 @@ class Booking {
     };
 
     constructor(
-        venue: { businessName: string; address: string; city: string },
+        venue: { id:string;businessName: string; address: string; city: string },
         date: string,
         timeSlots:{time:string;courtBooked:number}[]|undefined,
         user: { name: string; email: string; phone: string }

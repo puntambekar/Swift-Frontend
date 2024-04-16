@@ -5,10 +5,16 @@ import Venue from "../Models/Venue";
 import { Features } from "./Components/Features";
 import "./../SearchPage/Components/Search.css";
 import { Link } from "react-router-dom";
+import { Spinner } from "../Utils/Spinner";
+import { Errorpage } from "../Utils/Errorpage";
 
 export const VenueDetailPage = () => {
     const [isGalleryView, setIsGalleryView] = useState(false);
     const [viewWeeklyData, setViewWeeklyData] = useState(false);
+
+    const [httpError, setHttpError] = useState(null);
+    const [IsLoading, setIsLoading] = useState(true);
+
 
 
     const [selectedVenue, setSelectedVenue] = useState<Venue>();
@@ -46,11 +52,30 @@ export const VenueDetailPage = () => {
             }
            
             setSelectedVenue(loadedVenue);
+            setIsLoading(false);
 
         };
 
-        fetchVenue().catch(() => { })
-    }, [])
+        fetchVenue().catch((error:any) => {
+            setIsLoading(false);
+          setHttpError(error.message);
+        })
+    }, []);
+        
+  if(IsLoading){
+    return(
+        <Spinner/>
+    )
+  }
+    
+    if(httpError){
+        return(
+            
+              
+                <Errorpage/>
+            
+        )
+      }
 
     return (<div>
         <div className="container-fluid mt-3 mb-3" style={{ position: "relative", maxHeight: "500px", overflow: "auto" }}>

@@ -1,8 +1,8 @@
 import moment from "moment";
 import { useState, useEffect } from "react";
-import Venue from "../../Models/Venue";
+import Venue from "../../../Models/Venue";
 import { TimeButton } from "./TimeButton";
-import { Modals } from "./Modals/Modals";
+import { Modals } from "../Modals/Modals";
 
 
 interface TimeSlotProps {
@@ -66,11 +66,11 @@ export const TimeSlot: React.FC<TimeSlotProps> = (props) => {
                 ))}
             </div>
             <div className="row">
-            <div className="col-12 text-center">
+           { avail?.hourlyAvailability.length??0>0?<div className="col-12 text-center">
                     <button type="button" className="btn btn-primary" disabled={disableProceed} onClick={openModal}>
                         Proceed
                     </button>
-                </div>
+                </div>:<div><p> Availability data not present</p></div>}
                 {showModal && (
                     <Modals selectedSlots={selectedSlots} closeModal={closeModal}  venue = {props.selectedVenue} selectedDate={props.day.format("YYYY-MM-DD")}/>
                 )}

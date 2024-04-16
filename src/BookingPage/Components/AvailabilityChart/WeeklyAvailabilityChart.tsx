@@ -2,12 +2,16 @@ import { useState, useEffect, useRef } from "react";
 import moment, { Moment } from "moment";
 import { TimeSlot } from "./TimeSlot";
 import { TimeButton } from "./TimeButton";
-import Venue from "../../Models/Venue";
-import { Spinner } from "../../Utils/Spinner";
+import Venue from "../../../Models/Venue";
+import { Spinner } from "../../../Utils/Spinner";
 import { v4 as uuidv4 } from 'uuid';
 import { useWindowSize } from "@react-hook/window-size";
 
-export const WeeklyAvailabilityChart: React.FC<{ selectedVenue: Venue }> = (props) => {
+interface WeeklyAvailabilityChartProps{
+  selectedVenue: Venue 
+}
+
+export const WeeklyAvailabilityChart: React.FC<WeeklyAvailabilityChartProps> = (props) => {
   const maxDate = moment().add(3, 'months').startOf('week');
   const [today, setToday] = useState(moment().startOf('day'));
   const [startDate, setStartDate] = useState<Moment>(today.isAfter(maxDate) ? maxDate : today);
