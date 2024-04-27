@@ -36,7 +36,7 @@ export const ReviewModal: React.FC<{
 
     async function handleBooking() {
         setIsLoading(true);
-        const url = "http://localhost:8080/api/booking/add/booking";
+        const url = "http://localhost:8080/api/booking/add";
 
         const bookingData: Booking = new Booking({
             "id":props.venue.venueId,

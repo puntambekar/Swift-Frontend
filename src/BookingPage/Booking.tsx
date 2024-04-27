@@ -12,7 +12,7 @@ export const Booking: React.FC<{}> = () => {
 
     const venueId = window.location.pathname.split("/")[2];
     const fetchVenue = async () => {
-        const url: string = `http://localhost:8080/api/venues/details?venueId=${venueId}`;
+        const url: string = `http://localhost:8080/api/venues/details?venueId=65fca4cf2b273c32faeb6f61`;
         const requestOptions = {
             method: "GET",
             headers: {

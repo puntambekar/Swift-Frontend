@@ -1,13 +1,19 @@
-import { Heros } from "./Components/Heros"
+import { ContactUsPage } from "../ContactUsPage/ContactUsPage";
+import { Corousel } from "./Components/Corousel";
+import { Features } from "./Components/Features";
 
 export const HomePage =()=>{
-    return( <div className="container-fluid p-0">
-    <div className="row">
-      <div className="col-lg-12">
-        
-     <Heros/>
-      </div>
+  return (
+
+    <div className=" mt-5" >
+        <Corousel />
+
+    <hr className="featurette-divider" />
+        <Features />
+        <hr className="featurette-divider" />
+        <ContactUsPage/>
     </div>
-  </div>)
+);
+
     
 }

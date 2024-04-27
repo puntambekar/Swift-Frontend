@@ -1,39 +1,81 @@
+// App.js
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
+import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
 import { Navbar } from './NavbarAndFooter/Navbar';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HomePage } from './HomePage/HomePage';
-import { SearchPage } from './SearchPage/SearchPage';
-import { VenueDetailPage } from './VenueDetailPage/VenueDetailPage';
 import { Footer } from './NavbarAndFooter/Footer';
 import { Booking } from './BookingPage/Booking';
+import { LoginCallback, Security } from '@okta/okta-react';
+import LoginWidget from './auth/LoginWidget';
+import { oktaConfig } from "./lib/oktaConfig";
+import { BrowserRouter, Redirect, Route, Switch, useHistory } from 'react-router-dom'; // Import useHistory
+import { SignupPage } from './auth/SignupPage';
+import { ContactUsPage } from './ContactUsPage/ContactUsPage';
 
 
+const oktaAuth = new OktaAuth(oktaConfig);
+export const App=()=> {
+  const history = useHistory();
+  const customAuthHandler = () => {
+    history.push("/login");
+  };
 
-function App() {
+
+  const restoreOriginalUri = async (_oktaAuth: any, originalUri: any) => {
+    history.replace(toRelativeUrl(originalUri || "/", window.location.origin));
+  };
+
+
   return (
+    
     <div className="main-content" style={{ paddingBottom: "60px" }}>
-   
-   <BrowserRouter>
-   <Navbar/>
-      <Routes>
-      <Route path="/" element={<HomePage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/another" element={<div>Another</div>} />
-        <Route path="/page" element={<div>Page</div>} />
-        <Route path="/about" element={<div>About</div>} />
-        <Route path="/contact" element={<div>Contact</div>} />
-        <Route path="/booking/:venueId" element={<Booking/>} />
-        <Route path="/view/:venueId" element={<VenueDetailPage/>}></Route>
+    
+      <Security
+        oktaAuth={oktaAuth}
+        restoreOriginalUri={restoreOriginalUri}
+        onAuthRequired={customAuthHandler}
+      >
 
-      </Routes>
-      <Footer/>
-    </BrowserRouter>
+        <Navbar />
+        <Switch>
+          <Route path="/" exact>
+            <Redirect to="/home"></Redirect>
+          </Route>
+          <Route path="/home">
+            <HomePage />
+          </Route>
+          <Route path="/courtBooking">
+          <Booking />
+          </Route>
+          {/* <Route path="/page">
+            <div>Page</div>
+          </Route> */}
+          <Route path="/about">
+            <div>About</div>
+          </Route>
+          <Route path="/contact">
+            <ContactUsPage/>
+          </Route>
+          <Route path="/signup">
+            <SignupPage/>
+          </Route>
+          <Route path="/booking/:venueId">
+            <Booking />
+          </Route>
+    
+          <Route
+            path="/login"
+            render={() => <LoginWidget config={oktaConfig} />}
+          />
+          <Route path="/login/callback" component={LoginCallback} />
+        </Switch>
+        <Footer />
+
+      </Security>
+    
     </div>
+    
   );
 }
 
-export default App;

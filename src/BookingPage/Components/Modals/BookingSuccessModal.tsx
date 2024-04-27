@@ -13,7 +13,7 @@ export const BookingSuccessModal:React.FC<{ closeModal: () => void,venueId:strin
 
     <div className="modal-footer">
 
-        <button type="submit" className="btn btn-primary">Home</button>
-        {/* <Link to={`/booking/${props.venueId}`} type="button" className="btn btn-primary">Home</Link> */}
+        {/* <button type="submit" className="btn btn-primary">Home</button> */}
+        <Link to={`/home`} type="button" className="btn btn-primary">Home</Link>
     </div>
 </>)}
