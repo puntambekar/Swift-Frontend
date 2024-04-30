@@ -5,7 +5,7 @@ export const Navbar = () => {
 
     const handleLogout = async () => oktaAuth.signOut();
 
-    console.log("authstate",authState);
+    console.log("authstate", authState);
 
     return (
         <div>
@@ -17,24 +17,47 @@ export const Navbar = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <NavLink to="/home" className="nav-link link-body-emphasis px-2 active" aria-current="page"><b>Home</b></NavLink>
-                        <NavLink to="/courtBooking" className="nav-link link-body-emphasis px-2"><b>Court Booking</b></NavLink>
-                        {/* <NavLink to="/page" className="nav-link link-body-emphasis px-2"><b>Page1</b></NavLink> */}
-                        <NavLink to="about" className="nav-link link-body-emphasis px-2"><b>About</b></NavLink>
-                        <NavLink to="/contact" className="nav-link link-body-emphasis px-2"><b>Contact us</b></NavLink>
-                        <div className="navbar-nav ms-auto mb-2 mb-lg-0">
-                            {!authState?.isAuthenticated?
-                                <NavLink to="/login" className="nav-link link-body-emphasis px-2"><b>Login</b></NavLink>
+                        <ul className="navbar-nav me-auto">
+                            <li className="nav-item">
+                                <NavLink to="/home" className="nav-link link-body-emphasis px-2 active" aria-current="page"><b>Home</b></NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to="/courtBooking" className="nav-link link-body-emphasis px-2"><b>Court Booking</b></NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to="about" className="nav-link link-body-emphasis px-2"><b>About</b></NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to="/contact" className="nav-link link-body-emphasis px-2"><b>Contact us</b></NavLink>
+                            </li>
+                        </ul>
+                        <ul className="navbar-nav ml-auto">
+
+                            {
+                                authState?.isAuthenticated && authState?.accessToken?.claims?.userType === 'admin' &&
+                                <li className="nav-item dropdown">
+                                    <a href="#" className="nav-link link-body-emphasis px-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <b>Backoffice</b></a>
+                                    <ul className="dropdown-menu">
+                                        <li><a className="dropdown-item" href="/backoffice/bookings">Retrieve Bookings</a></li>
+                                        <li><a className="dropdown-item" href="#">Another action</a></li>
+                                        <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
+                                </li>
+                            }
+
+                            {!authState?.isAuthenticated ?
+                                <li className="nav-item">
+                                    <NavLink to="/login" className="nav-link link-body-emphasis px-2"><b>Login</b></NavLink></li>
                                 :
                                 <button onClick={handleLogout} className="nav-link link-body-emphasis px-2"><b>Logout</b></button>
                             }
 
-                            
 
 
 
 
-                        </div>
+                        </ul>
                     </div>
                 </div>
             </nav>

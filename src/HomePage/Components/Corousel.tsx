@@ -1,5 +1,5 @@
 export const Corousel = ()=>{
-    return(  <div id="myCarousel" className="carousel slide mb-6" >
+    return(  <div id="myCarousel" className="carousel slide mb-6" data-bs-interval="false" >
     <div className="carousel-indicators">
         <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -12,7 +12,7 @@ export const Corousel = ()=>{
                 <div className="carousel-caption text-start">
                     <h1>Example headline.</h1>
                     <p className="opacity-75">Some representative placeholder content for the first slide of the carousel.</p>
-                    <p><a className="btn btn-lg btn-primary" href="#">Book Court</a></p>
+                    <p><a className="btn btn-lg btn-primary" href="#">Button 1</a></p>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@ export const Corousel = ()=>{
                 <div className="carousel-caption">
                     <h1>Another example headline.</h1>
                     <p>Some representative placeholder content for the second slide of the carousel.</p>
-                    <p><a className="btn btn-lg btn-primary" href="#">Book Court</a></p>
+                    <p><a className="btn btn-lg btn-primary" href="#">Button 2</a></p>
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@ export const Corousel = ()=>{
                 <div className="carousel-caption text-end">
                     <h1>One more for good measure.</h1>
                     <p>Some representative placeholder content for the third slide of this carousel.</p>
-                    <p><a className="btn btn-lg btn-primary" href="#">Book Court</a></p>
+                    <p><a className="btn btn-lg btn-primary" href="#">Button 3</a></p>
                 </div>
             </div>
         </div>
