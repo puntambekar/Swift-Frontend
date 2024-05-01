@@ -61,9 +61,9 @@ export const App=()=> {
           <Route path="/signup">
             <SignupPage/>
           </Route>
-          <Route path="/booking/:venueId">
+          {/* <Route path="/booking/:venueId">
             <Booking />
-          </Route>
+          </Route> */}
           <SecureRoute path="/backoffice"
           >
             <Backoffice/>

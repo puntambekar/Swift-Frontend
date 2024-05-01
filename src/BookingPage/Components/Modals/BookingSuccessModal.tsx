@@ -3,7 +3,7 @@ import "./SuccessPage.css"
 export const BookingSuccessModal:React.FC<{ closeModal: () => void,venueId:string}>=(props)=>{
     return( <><div className="modal-header">
     <h5 className="modal-title"></h5>
-    <button type="button" className="btn-close" onClick={props.closeModal}></button>
+    {/* <button type="button" className="btn-close" onClick={props.closeModal}></button> */}
 </div>
 <div className="modal-body success-page">
   <i className="bi bi-check-circle text-success"></i>

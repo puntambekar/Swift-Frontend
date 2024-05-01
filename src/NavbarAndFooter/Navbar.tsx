@@ -39,9 +39,9 @@ export const Navbar = () => {
                                     <a href="#" className="nav-link link-body-emphasis px-2 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <b>Backoffice</b></a>
                                     <ul className="dropdown-menu">
+                                        <li><a className="dropdown-item" href="/backoffice/profile">Profile</a></li>
                                         <li><a className="dropdown-item" href="/backoffice/bookings">Retrieve Bookings</a></li>
-                                        <li><a className="dropdown-item" href="#">Another action</a></li>
-                                        <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                        <li><a className="dropdown-item" href="/backoffice/manage">Manage Bookings</a></li>
                                     </ul>
                                 </li>
                             }

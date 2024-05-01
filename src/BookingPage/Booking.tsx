@@ -10,9 +10,9 @@ export const Booking: React.FC<{}> = () => {
     const [httpError, setHttpError] = useState(null);
     const [IsLoading, setIsLoading] = useState(true);
 
-    const venueId = window.location.pathname.split("/")[2];
+    
     const fetchVenue = async () => {
-        const url: string = `http://localhost:8080/api/venues/details?venueId=65fca4cf2b273c32faeb6f61`;
+        const url: string = `http://localhost:8080/api/venues/details`;
         const requestOptions = {
             method: "GET",
             headers: {
@@ -32,8 +32,10 @@ export const Booking: React.FC<{}> = () => {
 
         setSelectedVenue(loadedVenue);
         setIsLoading(false);
+       
 
     };
+    console.log(selectedVenue);
 
     useEffect(() => {
 
@@ -41,7 +43,7 @@ export const Booking: React.FC<{}> = () => {
             setIsLoading(false);
             setHttpError(error.message);
         })
-    }, [venueId])
+    }, [])
 
     if (IsLoading) {
         return (
