@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import Venue from "../Models/Venue";
-import { WeeklyAvailabilityChart } from "./Components/AvailabilityChart/WeeklyAvailabilityChart";
+import { AvailabilityChart } from "./Components/AvailabilityChart/AvailabilityChart";
 import { Spinner } from "react-bootstrap";
 import { Errorpage } from "../Utils/Errorpage";
 
-export const Booking: React.FC<{}> = () => {
+export const BookingPage: React.FC<{}> = () => {
 
     const [selectedVenue, setSelectedVenue] = useState<Venue>();
     const [httpError, setHttpError] = useState(null);
@@ -61,7 +61,7 @@ export const Booking: React.FC<{}> = () => {
         <div className="row">
             <div className="col">
                 {
-                    selectedVenue && <WeeklyAvailabilityChart selectedVenue={selectedVenue} />
+                    selectedVenue && <AvailabilityChart selectedVenue={selectedVenue} />
                 }
 
             </div>

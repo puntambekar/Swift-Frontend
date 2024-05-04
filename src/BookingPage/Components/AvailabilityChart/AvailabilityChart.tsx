@@ -7,11 +7,11 @@ import { Spinner } from "../../../Utils/Spinner";
 import { v4 as uuidv4 } from 'uuid';
 import { useWindowSize } from "@react-hook/window-size";
 
-interface WeeklyAvailabilityChartProps {
+interface AvailabilityChartProps {
   selectedVenue: Venue
 }
 
-export const WeeklyAvailabilityChart: React.FC<WeeklyAvailabilityChartProps> = (props) => {
+export const AvailabilityChart: React.FC<AvailabilityChartProps> = (props) => {
   const maxDate = moment().add(3, 'months').startOf('week');
   const [today, setToday] = useState(moment().startOf('day'));
   const [startDate, setStartDate] = useState<Moment>(today.isAfter(maxDate) ? maxDate : today);
@@ -21,23 +21,6 @@ export const WeeklyAvailabilityChart: React.FC<WeeklyAvailabilityChartProps> = (
   const [showSlots, setShowSlots] = useState(false);
 
   const [windowWidth, windowHeight] = useWindowSize();
-
-  // const goToPreviousWeek = () => {
-  //   const previousWeekStartDate = startDate.clone().subtract(1, 'week');
-  //   if (previousWeekStartDate.isSameOrAfter(today)) {
-  //     setStartDate(previousWeekStartDate);
-  //     setSelectedDay(-1);
-  //   }
-  // };
-
-
-  // const goToNextWeek = () => {
-  //   const nextWeekStartDate = startDate.clone().add(1, 'week');
-  //   if (nextWeekStartDate.isBefore(maxDate, 'week')) {
-  //     setStartDate(nextWeekStartDate);
-  //     setSelectedDay(-1);
-  //   }
-  // };
 
   const goToPreviousDay = () => {
     const previousDay = startDate.clone().subtract(1, 'day');
@@ -116,41 +99,6 @@ export const WeeklyAvailabilityChart: React.FC<WeeklyAvailabilityChartProps> = (
         </button>
 
       </form>
-      {/* <div className="row">
-        <div className="col-sm-4 d-flex justify-content-start align-items-center">
-          <button className="btn btn-primary mb-2" onClick={goToPreviousWeek}>
-            Previous Week
-          </button>
-        </div>
-        <form onSubmit={userDateChange} className="col-sm-4 d-flex justify-content-center align-items-center">
-
-          <label className="visually-hidden" htmlFor="date">Date</label>
-          <input
-            type="date"
-            className={`form-control border-0 `}
-            id="date"
-            style={{ maxWidth: "200px" }}
-            placeholder="Date..."
-            aria-label="date"
-            onBlur={(e) => (e.target.type = 'text')}
-            onFocus={(e) => (e.target.type = 'date')}
-            onChange={(e) => setUserDate(e.target.value)}
-            min={new Date().toISOString().split('T')[0]}
-            max={(new Date(new Date().getTime() + 90 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0]}
-            required
-          />
-          <button type="submit" className="btn btn-primary rounded-circle ms-2"
-            style={{ width: '50px', height: '50px' }}>
-            <i className="bi bi-search"></i>
-          </button>
-
-        </form>
-        <div className="col-sm-4 d-flex justify-content-end align-items-center">
-          <button className="btn btn-primary mb-2" onClick={goToNextWeek}>
-            Next Week
-          </button>
-        </div>
-      </div> */}
       <div>
         <ul className="nav nav-pills mb-3  flex-sm-row nav-fill" style={{ marginTop: '40px', flexWrap: 'nowrap', overflowX: 'auto' }} id="myTab0" role="tablist" onScroll={goToPreviousDay}>
           <span className="nav-item" style={{ display: 'flex', alignItems: 'center' }}>

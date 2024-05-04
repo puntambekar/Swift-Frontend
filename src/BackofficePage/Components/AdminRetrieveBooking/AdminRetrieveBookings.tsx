@@ -3,19 +3,19 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
-import { Errorpage } from '../../Utils/Errorpage';
-import Booking from '../../Models/Booking';
-import BookingEvent from '../../Models/BookingEvent';
+import { Errorpage } from '../../../Utils/Errorpage';
+import Booking from '../../../Models/Booking';
+import BookingEvent from '../../../Models/BookingEvent';
 
-export const AdminRetrieveBooking=()=>{
+export const AdminRetrieveBookings=()=>{
 
     const localizer = momentLocalizer(moment);
     const [httpError, setHttpError] = useState(null);
     const [IsLoading, setIsLoading] = useState(true);
     const [bookingEvents, setBookingEvents] = useState<BookingEvent[]>();
     
-    const fetchVenue = async () => {
-      const url: string = `http://localhost:8080/api/booking/list`;
+    const fetchBookingSlots = async () => {
+      const url: string = `http://localhost:8080/api/booking/slots`;
       const requestOptions = {
           method: "GET",
           headers: {
@@ -47,7 +47,7 @@ export const AdminRetrieveBooking=()=>{
 
   useEffect(() => {
 
-      fetchVenue().catch((error: any) => {
+      fetchBookingSlots().catch((error: any) => {
           setIsLoading(false);
           setHttpError(error.message);
       })

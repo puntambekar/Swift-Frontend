@@ -1,8 +1,12 @@
 import { useOktaAuth } from "@okta/okta-react";
 import { Redirect } from "react-router-dom";
-import { AdminRetrieveBooking } from "./Components/AdminRetrieveBooking";
-import { AdminManageBooking } from "./Components/AdminManageBooking";
-import { VenueProfile } from "./Components/VenueProfile";
+import { AdminRetrieveBookings } from "./Components/AdminRetrieveBooking/AdminRetrieveBookings";
+
+import { VenueProfile } from "./Components/VenueProfile/VenueProfile";
+
+import Booking from "../Models/Booking";
+import { AdminManageBookings } from "./Components/AdminManageBooking/AdminManageBookings";
+import { AdminManageAvailability } from "./Components/AdminManageAvailability/AdminManageAvailability";
 
 export const Backoffice = () => {
 
@@ -16,14 +20,17 @@ export const Backoffice = () => {
     let content;
     switch (action) {
         case "bookings":
-            content = <AdminRetrieveBooking />;
+            content = <AdminRetrieveBookings />;
             break;
         case "profile":
             content = <VenueProfile/>;
             break;
         case "manage":
-            content = <AdminManageBooking />;
+            content = <AdminManageBookings/>;
             break;
+            case "availability":
+                content = <AdminManageAvailability/>;
+                break;
         default:
             content = null; // Render nothing if no action matches
     }

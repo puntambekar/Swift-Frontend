@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import Venue from "../../Models/Venue";
-import { Spinner } from "../../Utils/Spinner";
-import { Errorpage } from "../../Utils/Errorpage";
+import Venue from "../../../Models/Venue";
+import { Spinner } from "../../../Utils/Spinner";
+import { Errorpage } from "../../../Utils/Errorpage";
+import { formatTime } from "../../../Utils/helperMethods";
 
 export const VenueProfile = () => {
 
@@ -45,9 +46,7 @@ export const VenueProfile = () => {
         setSelectedDate(e.target.value);
     };
 
-    const formatTime = (time: string) => {
-        return new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    }
+   
     
     // Filter availability based on selected date
     const filteredAvailability = venue?.availabilityData.dailyAvailability.find(

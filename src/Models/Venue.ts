@@ -1,12 +1,12 @@
-import WeeklyAvailabiltyModel from "./WeeklyAvailabiltyModel";
+import Availabilty from "./Availabilty";
 
 class Venue {
     venueId:string;
     businessName:string;
     address:string;
     city:string;
-    availabilityData:WeeklyAvailabiltyModel;
-    constructor( venueId:string, businessName:string,address:string,city:string,availabilityData:WeeklyAvailabiltyModel){
+    availabilityData:Availabilty;
+    constructor( venueId:string, businessName:string,address:string,city:string,availabilityData:Availabilty){
         this.venueId=venueId;
         this.businessName = businessName;
         this.address = address;

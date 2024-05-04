@@ -42,6 +42,7 @@ export const Navbar = () => {
                                         <li><a className="dropdown-item" href="/backoffice/profile">Profile</a></li>
                                         <li><a className="dropdown-item" href="/backoffice/bookings">Retrieve Bookings</a></li>
                                         <li><a className="dropdown-item" href="/backoffice/manage">Manage Bookings</a></li>
+                                        <li><a className="dropdown-item" href="/backoffice/availability">Manage Availability</a></li>
                                     </ul>
                                 </li>
                             }

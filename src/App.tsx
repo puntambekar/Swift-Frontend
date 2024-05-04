@@ -5,7 +5,7 @@ import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
 import { Navbar } from './NavbarAndFooter/Navbar';
 import { HomePage } from './HomePage/HomePage';
 import { Footer } from './NavbarAndFooter/Footer';
-import { Booking } from './BookingPage/Booking';
+import { BookingPage } from './BookingPage/BookingPage';
 import { LoginCallback, SecureRoute, Security } from '@okta/okta-react';
 import LoginWidget from './auth/LoginWidget';
 import { oktaConfig } from "./lib/oktaConfig";
@@ -47,7 +47,7 @@ export const App=()=> {
             <HomePage />
           </Route>
           <Route path="/courtBooking">
-          <Booking />
+          <BookingPage />
           </Route>
           {/* <Route path="/page">
             <div>Page</div>

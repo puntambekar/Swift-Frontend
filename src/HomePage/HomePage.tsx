@@ -14,7 +14,7 @@ export const HomePage =()=>{
         <hr className="featurette-divider" />
         <ContactUsPage/>
         <div className="fixed-bottom d-flex justify-content-center" style={{ marginBottom: "70px" }}>
-            <Link to={``} type="button" className="btn btn-danger btn-lg">Book Court</Link>
+            <Link to="/courtBooking" type="button" className="btn btn-danger btn-lg">Book Court</Link>
         </div>
     </div>
 );

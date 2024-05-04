@@ -5,6 +5,8 @@ import { BookingFailedModal } from "./BookingFailedModal";
 import { BookingSuccessModal } from "./BookingSuccessModal";
 import { Spinner } from "../../../Utils/Spinner";
 import "./Review.css";
+import { formatTime } from "../../../Utils/helperMethods";
+import { BOOKING_STATUS } from "../../../Utils/constants";
 
 interface UserData {
     name: string;
@@ -23,16 +25,6 @@ export const ReviewModal: React.FC<{
     const [httpError, setHttpError] = useState(null);
     const [IsLoading, setIsLoading] = useState(false);
 
-    const formatTime = (time: string) => {
-        return new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    }
-
-    const formatTimeForBackend = (time: string) => {
-        return new Date(time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' })
-    }
-
-
-
 
     async function handleBooking() {
         setIsLoading(true);
@@ -43,7 +35,7 @@ export const ReviewModal: React.FC<{
             "businessName": props.venue.businessName,
             "address": props.venue.address, "city": props.venue.city
         }, props.selectedDate, props.filteredSlots?.map(e => ({ "time": e.time, "courtBooked": e.courtBooked })),
-            { "name": props.userData.name, "email": props.userData.email, "phone": props.userData.phoneNumber })
+            { "name": props.userData.name, "email": props.userData.email, "phone": props.userData.phoneNumber },BOOKING_STATUS.ACTIVE)
 
         console.log(bookingData);
 

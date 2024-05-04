@@ -1,5 +1,4 @@
-class WeeklyAvailabiltyModel {
-   // venueId: number;
+class Availabilty {
     year: string;
     month: string;
 
@@ -28,4 +27,4 @@ class WeeklyAvailabiltyModel {
 
 
 
-export default WeeklyAvailabiltyModel;
+export default Availabilty;

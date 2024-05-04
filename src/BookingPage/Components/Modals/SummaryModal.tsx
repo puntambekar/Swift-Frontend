@@ -4,6 +4,7 @@ import { Counter } from "../../../Utils/Counter";
 import  DetailModal  from "./DetailModal";
 import { ReviewModal } from "./ReviewModal";
 import Venue from "../../../Models/Venue";
+import { formatTime } from "../../../Utils/helperMethods";
 
 
 const StyledTd = styled.td`
@@ -58,12 +59,6 @@ export const SummaryModal: React.FC<{
 
 
     }
-
-    const formatTime = (time: string) => {
-        return new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    }
-
-
 
     return (<div className="modal-content">
         {!showDetailsModal && !showReviewModal ?
