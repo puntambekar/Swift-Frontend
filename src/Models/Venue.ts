@@ -5,8 +5,8 @@ class Venue {
     businessName:string;
     address:string;
     city:string;
-    availabilityData:Availabilty;
-    constructor( venueId:string, businessName:string,address:string,city:string,availabilityData:Availabilty){
+    availabilityData:Availabilty[];
+    constructor( venueId:string, businessName:string,address:string,city:string,availabilityData:Availabilty[]){
         this.venueId=venueId;
         this.businessName = businessName;
         this.address = address;

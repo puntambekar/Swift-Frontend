@@ -6,77 +6,60 @@ import { Spinner } from 'react-bootstrap';
 import { Errorpage } from '../../../Utils/Errorpage';
 import Booking from '../../../Models/Booking';
 import BookingEvent from '../../../Models/BookingEvent';
+import { fetchBookingSlotsData } from '../../../Services/bookingService';
 
-export const AdminRetrieveBookings=()=>{
+export const AdminRetrieveBookings = () => {
 
-    const localizer = momentLocalizer(moment);
-    const [httpError, setHttpError] = useState(null);
-    const [IsLoading, setIsLoading] = useState(true);
-    const [bookingEvents, setBookingEvents] = useState<BookingEvent[]>();
-    
-    const fetchBookingSlots = async () => {
-      const url: string = `http://localhost:8080/api/booking/slots`;
-      const requestOptions = {
-          method: "GET",
-          headers: {
-              "content-type": "application/json"
-          }
-      }
-      const response = await fetch(url, requestOptions);
-      const responseJson = await response.json();
-      console.log(response);
-      console.log(responseJson);
+  const localizer = momentLocalizer(moment);
+  const [httpError, setHttpError] = useState(null);
+  const [IsLoading, setIsLoading] = useState(true);
+  const [bookingEvents, setBookingEvents] = useState<BookingEvent[]>();
 
-      const loadedBookings: BookingEvent[] = [];
 
-      for(const key in responseJson){
-        loadedBookings.push({
-          id: responseJson[key].id,
-          title:responseJson[key].title,
-          start: responseJson[key].start,
-          end: responseJson[key].end,
-         
-         
-        });
-      }
-      setBookingEvents(loadedBookings);
-      setIsLoading(false);
-
-  };
-  console.log("bookingsEvents",bookingEvents);
+  console.log("bookingsEvents", bookingEvents);
 
   useEffect(() => {
+    const fetchBookingSlots = async () => {
+      try {
+        const loadedBookingsEvents = await fetchBookingSlotsData();
+        setBookingEvents(loadedBookingsEvents);
+        setIsLoading(false);
 
-      fetchBookingSlots().catch((error: any) => {
-          setIsLoading(false);
-          setHttpError(error.message);
-      })
-  }, [])
+      } catch (error: any) {
+        setIsLoading(false);
+        setHttpError(error.message);
+      }
+    };
 
-if (IsLoading) {
-  return (
+    fetchBookingSlots();
+  }, []);
+
+  if (IsLoading) {
+    return (
       <Spinner />
-  )
-}
+    )
+  }
 
-if (httpError) {
-  return (
+  if (httpError) {
+    return (
       <Errorpage />
-  )
-}
+    )
+  }
 
-    return(<div>
-      
-      <div style={{ height: 500 }}>
-        <Calendar
-          localizer={localizer}
-          events={bookingEvents}
-          startAccessor={(event) => { return new Date(event.start) }}
-          endAccessor={(event) => { return new Date(event.end) }}
-     
-          style={{ margin: '50px' , display: 'block',
-          marginTop: '10px'}}
-        />
-      </div>
-    </div>)
+  return (<div>
+
+    <div style={{ height: 500 }}>
+      <Calendar
+        localizer={localizer}
+        events={bookingEvents}
+        startAccessor={(event) => { return new Date(event.start) }}
+        endAccessor={(event) => { return new Date(event.end) }}
+
+        style={{
+          margin: '50px', display: 'block',
+          marginTop: '10px'
+        }}
+      />
+    </div>
+  </div>)
 }

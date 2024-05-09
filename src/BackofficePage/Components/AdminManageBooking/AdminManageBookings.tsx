@@ -3,6 +3,7 @@ import Booking from "../../../Models/Booking";
 import { Spinner } from "../../../Utils/Spinner";
 import { Errorpage } from "../../../Utils/Errorpage";
 import { BookingCard } from "./Components/BookingCard";
+import { fetchBookingsData } from "../../../Services/bookingService";
 
 export const AdminManageBookings = () => {
 
@@ -10,45 +11,22 @@ export const AdminManageBookings = () => {
     const [IsLoading, setIsLoading] = useState(true);
     const [bookings, setBookings] = useState<Booking[]>();
     const [searchTerm, setSearchTerm] = useState('');
-
-    const fetchBookings = async () => {
-        const url: string = `http://localhost:8080/api/booking/list`;
-        const requestOptions = {
-            method: "GET",
-            headers: {
-                "content-type": "application/json"
-            }
-        }
-        const response = await fetch(url, requestOptions);
-        const responseJson = await response.json();
-        console.log(response);
-        console.log(responseJson);
-
-        const loadedBookings: Booking[] = [];
-
-        for (const key in responseJson) {
-            loadedBookings.push({
-                id: responseJson[key].id,
-                venue: responseJson[key].venue,
-                date: responseJson[key].date,
-                timeSlots: responseJson[key].timeSlots,
-                user: responseJson[key].user,
-                status:responseJson[key].status
-            });
-        }
-        setBookings(loadedBookings);
-        setIsLoading(false);
-
-    };
-    console.log("bookings", bookings);
+    const [bookingStatusChanged, setBookingStatusChanged] = useState(false);
 
     useEffect(() => {
-
-        fetchBookings().catch((error: any) => {
-            setIsLoading(false);
+        const fetchBooking = async () => {
+            try {
+                const loadedBookings = await fetchBookingsData();
+                setBookings(loadedBookings);
+                setIsLoading(false);
+            } catch (error:any) {
+                setIsLoading(false);
             setHttpError(error.message);
-        })
-    }, [])
+            }
+        };
+        fetchBooking();
+        console.log("in useeffect");
+    }, []);
 
     if (IsLoading) {
         return (

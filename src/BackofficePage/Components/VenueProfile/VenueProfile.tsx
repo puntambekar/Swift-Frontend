@@ -3,6 +3,7 @@ import Venue from "../../../Models/Venue";
 import { Spinner } from "../../../Utils/Spinner";
 import { Errorpage } from "../../../Utils/Errorpage";
 import { formatTime } from "../../../Utils/helperMethods";
+import { fetchVenueData } from "../../../Services/venueService";
 
 export const VenueProfile = () => {
 
@@ -11,35 +12,19 @@ export const VenueProfile = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [selectedDate, setSelectedDate] = useState('');
 
-    const fetchVenue = async () => {
-        const url: string = `http://localhost:8080/api/venues/details`;
-        const requestOptions = {
-            method: "GET",
-            headers: {
-                "content-type": "application/json"
-            }
-        }
-        const response = await fetch(url, requestOptions);
-        const responseJson = await response.json();
-
-        const loadedVenue: Venue = {
-            venueId: responseJson.id,
-            businessName: responseJson.businessName,
-            city: responseJson.city,
-            address: responseJson.address,
-            availabilityData: responseJson.availability
-        }
-
-        setVenue(loadedVenue);
-        setIsLoading(false);
-    };
-
     useEffect(() => {
-        fetchVenue().catch((error: any) => {
-            setIsLoading(false);
+        const fetchVenue = async () => {
+            try {
+                const loadedVenue = await fetchVenueData();
+                setVenue(loadedVenue);
+                setIsLoading(false);
+            } catch (error:any) {
+                setIsLoading(false);
             setHttpError(error.message);
-        })
-    }, [])
+            }
+        };
+        fetchVenue();
+    }, []);
 
     // Function to handle date input change
     const handleDateChange = (e: any) => {
@@ -48,10 +33,10 @@ export const VenueProfile = () => {
 
    
     
-    // Filter availability based on selected date
-    const filteredAvailability = venue?.availabilityData.dailyAvailability.find(
-        (dailyAvailability) => dailyAvailability.date === selectedDate
-    );
+    // // Filter availability based on selected date
+    // const filteredAvailability = venue?.availabilityData.dailyAvailability.find(
+    //     (dailyAvailability) => dailyAvailability.date === selectedDate
+    // );
 
     if (isLoading) {
         return (
@@ -98,7 +83,7 @@ export const VenueProfile = () => {
                 </div>
                 <div className="row">
                 <div className="col-md-6">
-                        {filteredAvailability && (
+                        {/* {filteredAvailability && (
                             <div>
                                 <h3>Availability for {selectedDate}</h3>
                                 <ul className="list-group">
@@ -111,7 +96,7 @@ export const VenueProfile = () => {
                                     )}
                                 </ul>
                             </div>
-                        )}
+                        )} */}
                     </div>
                 </div>
             </div>

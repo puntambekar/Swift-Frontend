@@ -14,7 +14,10 @@ interface TimeSlotProps {
 export const TimeSlot: React.FC<TimeSlotProps> = (props) => {
     
    
-    const avail = props.selectedVenue.availabilityData.dailyAvailability.find(avail => moment(avail.date).isSame(props.day));
+    const availabilities = props.selectedVenue.availabilityData.flatMap(availability => availability?.dailyAvailability);
+
+    const avail = availabilities?.find(avail => moment(avail?.date).isSame(props.day));
+    
     const [clickedButtons, setClickedButtons] = useState<{ [key: string]: boolean }>({});
     const [showModal, setShowModal] = useState(false);
     const [disableProceed,setDisableProceed] = useState(true);

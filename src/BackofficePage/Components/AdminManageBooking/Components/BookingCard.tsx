@@ -4,12 +4,13 @@ import Booking from '../../../../Models/Booking';
 import { formatTime } from '../../../../Utils/helperMethods';
 
 
-export const BookingCard: React.FC<{ booking: Booking }> = (props) => {
+export const BookingCard: React.FC<{ booking: Booking}> = (props) => {
 
     const [IsLoading, setIsLoading] = useState(false);
     const [displayCancelSuccess, setDisplayCancelSuccess] = useState(false);
     const [displayCancelError, setDisplayCancelError] = useState(false);
     const [httpError, setHttpError] = useState(null);
+    const [showAlert,setShowAlert]= useState(false);
 
 
 
@@ -53,6 +54,9 @@ export const BookingCard: React.FC<{ booking: Booking }> = (props) => {
                 setDisplayCancelError(true);
             }
             setDisplayCancelSuccess(true);
+            setShowAlert(true);
+            
+          
         } catch (error: any) {
             setHttpError(error.message);
             setDisplayCancelError(true);
@@ -69,12 +73,16 @@ export const BookingCard: React.FC<{ booking: Booking }> = (props) => {
         }
     }, [displayCancelSuccess]);
 
+    const closeSuccessMessage = () => {
+        setShowAlert(false);
+    }
+
     return (
         <div className="card mb-3 mt-3">
             <div className="card-header bg-light">
                 <h5 className="mb-0">
                     Booking ID: {props.booking.id}
-                    <span className={`badge text-bg-${statusColor} float-end`}>{displayStatus}</span>
+                    <span className={`badge text-bg-${!displayCancelSuccess?statusColor:"danger"} float-end`}>{!displayCancelSuccess?displayStatus:`Cancelled By Admin`}</span>
                 </h5>
             </div>
 
@@ -94,7 +102,7 @@ export const BookingCard: React.FC<{ booking: Booking }> = (props) => {
                     </p>
                 ))}
                 {
-                    props.booking.status === "active" &&
+                    props.booking.status === "active" && !displayCancelSuccess &&
                     <button className="btn btn-danger ml-2" onClick={handleCancelBooking} disabled={displayCancelSuccess}>
                         {
                             !IsLoading ? "Cancel Booking" :
@@ -104,10 +112,12 @@ export const BookingCard: React.FC<{ booking: Booking }> = (props) => {
                     </button>
                 
                 }
-                {
-                    displayCancelSuccess && <span className='text-danger mr-2'>  Booking cancelled successfully!</span>
-                }
-
+           {displayCancelSuccess && showAlert  && (
+                <div className="fixed-top alert alert-success alert-dismissible fade show mb-0" role="alert">
+                    Booking Canceled successfully!
+                    <button type="button" className="btn-close" aria-label="Close" onClick={closeSuccessMessage}></button>
+                </div>
+            )}
             </div>
         </div>
 

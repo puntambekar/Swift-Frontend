@@ -76,9 +76,9 @@ export const AvailabilityChart: React.FC<AvailabilityChartProps> = (props) => {
 
   return (
     <div className="container-fluid mt-3">
-      <form onSubmit={userDateChange} className="col-sm-4 d-flex justify-content-center align-items-center">
+      <form onSubmit={userDateChange} className="col-sm-6 d-flex justify-content-center align-items-center">
 
-        <label htmlFor="date"><i>Go to:</i></label>
+        <label htmlFor="date"><i>Show availability from: </i></label>
         <input
           type="date"
           className={`form-control border-0 `}

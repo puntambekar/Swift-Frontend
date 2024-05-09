@@ -7,6 +7,7 @@ import { SummaryModal } from "./SummaryModal";
 import { time } from "console";
 import { Spinner } from "../../../Utils/Spinner";
 import { Errorpage } from "../../../Utils/Errorpage";
+import { fetchDailyAvailabilityForADayData } from "../../../Services/venueService";
 
 
 
@@ -14,37 +15,30 @@ import { Errorpage } from "../../../Utils/Errorpage";
 
 export const Modals: React.FC<{ selectedSlots: string[], closeModal: () => void, venue: Venue, selectedDate: string; }> = (props) => {
 
-    const [filteredSlots, setFilteredSlots] = 
-    useState<{ time: string, courtAvailable: number,courtBooked:number }[]>([{time:"",courtAvailable:0,courtBooked:1}]);
+    const [filteredSlots, setFilteredSlots] =
+        useState<{ time: string, courtAvailable: number, courtBooked: number }[]>([{ time: "", courtAvailable: 0, courtBooked: 1 }]);
 
     const [count, setCount] = useState(0);
     const [httpError, setHttpError] = useState(null);
     const [IsLoading, setIsLoading] = useState(true);
 
-   
 
 
-    const fetchVenue = async () => {
-        const url: string = `http://localhost:8080/api/venues/dailyAvail?venueId=${props.venue.venueId}&date=${props.selectedDate}`;
-        const requestOptions = {
-            method: "GET",
-            headers: {
-                "content-type": "application/json"
-            }
-        }
-        const response = await fetch(url, requestOptions);
-        const responseJson = await response.json();
+
+    const fetchDailyAvailabilityForADay = async () => {
+
+        const responseJson = await fetchDailyAvailabilityForADayData(props.selectedDate);
 
         const filtered = responseJson.filter((a: { time: string }) => {
             return props.selectedSlots.includes(new Date(a.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
         });
-       
-      const filteredWithDefault= filtered.map((item:{time:string,courtAvailable:number})=>({
-        time:item.time,
-        courtAvailable:item.courtAvailable,
-        courtBooked:1
-       }))
-       console.log("filteredwd",filteredWithDefault)
+
+        const filteredWithDefault = filtered.map((item: { time: string, courtAvailable: number }) => ({
+            time: item.time,
+            courtAvailable: item.courtAvailable,
+            courtBooked: 1
+        }))
+        console.log("filteredwd", filteredWithDefault)
 
         setFilteredSlots(filteredWithDefault);
         setIsLoading(false);
@@ -55,48 +49,48 @@ export const Modals: React.FC<{ selectedSlots: string[], closeModal: () => void,
 
     useEffect(() => {
 
-        fetchVenue().catch((error:any) => {
+        fetchDailyAvailabilityForADay().catch((error: any) => {
             setIsLoading(false);
-          setHttpError(error.message);
+            setHttpError(error.message);
         })
     }, [props.venue.venueId])
 
-    
+
 
     const handleRowDeletion = (index: number) => {
         setFilteredSlots((prevSlots) => {
             const updatedSlots = [...prevSlots];
             updatedSlots.splice(index, 1);
-            if(updatedSlots.length===0){
+            if (updatedSlots.length === 0) {
                 props.closeModal();
             }
             return updatedSlots;
         });
     };
 
-    const updateFilteredSlots=(slots:{ time: string, courtAvailable: number,courtBooked:number }[])=>{
+    const updateFilteredSlots = (slots: { time: string, courtAvailable: number, courtBooked: number }[]) => {
         setFilteredSlots(slots)
     }
-    if(IsLoading){
-        return(
-            <Spinner/>
+    if (IsLoading) {
+        return (
+            <Spinner />
         )
-      }
-        
-        if(httpError){
-            return(
-                
-                  
-                    <Errorpage/>
-                
-            )
-          }
+    }
+
+    if (httpError) {
+        return (
+
+
+            <Errorpage />
+
+        )
+    }
     return (<div className={`modal show`} style={{ display: "block" }} tabIndex={-1} role="dialog">
         <div className="modal-dialog modal-dialog-centered ">
-            
-                {<SummaryModal filteredSlots={filteredSlots} handleRowDeletion={handleRowDeletion} venue={props.venue} 
-                closeModal={props.closeModal} selectedDate={props.selectedDate} updateFilteredSlots={updateFilteredSlots}/>}
-            
+
+            {<SummaryModal filteredSlots={filteredSlots} handleRowDeletion={handleRowDeletion} venue={props.venue}
+                closeModal={props.closeModal} selectedDate={props.selectedDate} updateFilteredSlots={updateFilteredSlots} />}
+
         </div>
     </div>
 
