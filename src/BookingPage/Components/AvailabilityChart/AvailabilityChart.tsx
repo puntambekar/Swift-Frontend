@@ -37,7 +37,7 @@ export const AvailabilityChart: React.FC<AvailabilityChartProps> = (props) => {
       setSelectedDay(-1);
     }
   };
-
+console.log(props.selectedVenue);
 
   let itemsToDisplay: number;
   if (windowWidth >= 768) {

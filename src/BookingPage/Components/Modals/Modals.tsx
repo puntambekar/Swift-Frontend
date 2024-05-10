@@ -28,9 +28,11 @@ export const Modals: React.FC<{ selectedSlots: string[], closeModal: () => void,
     const fetchDailyAvailabilityForADay = async () => {
 
         const responseJson = await fetchDailyAvailabilityForADayData(props.selectedDate);
+        console.log("response",responseJson);
+        console.log(props.selectedSlots);
 
         const filtered = responseJson.filter((a: { time: string }) => {
-            return props.selectedSlots.includes(new Date(a.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+            return props.selectedSlots.includes(new Date(`1970-01-01T${a.time}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
         });
 
         const filteredWithDefault = filtered.map((item: { time: string, courtAvailable: number }) => ({

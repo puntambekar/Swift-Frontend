@@ -48,7 +48,7 @@ export const TimeSlot: React.FC<TimeSlotProps> = (props) => {
         setShowModal(false);
     };
 
-    const selectedSlots: string[] = Object.entries(clickedButtons).filter(([time, clicked]) => clicked).map(([time]) => new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    const selectedSlots: string[] = Object.entries(clickedButtons).filter(([time, clicked]) => clicked).map(([time]) => new Date(`1970-01-01T${time}`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
     
     useEffect(() => {
         setDisableProceed(selectedSlots.length === 0);

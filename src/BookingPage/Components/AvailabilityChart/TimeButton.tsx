@@ -9,8 +9,9 @@ interface TimeButtonProps {
 }
 
 export const TimeButton: React.FC<TimeButtonProps> = (props) => {
-    const date = new Date(props.time);
+    const date = new Date(`1970-01-01T${props.time}`);
     const time = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
     const [isDisabled,setIsDisabled] = useState(false);
     const [slotColor,setSlotColor] = useState("");
    

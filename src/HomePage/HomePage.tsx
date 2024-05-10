@@ -9,8 +9,8 @@ export const HomePage =()=>{
     <div className=" mt-5" >
         <Corousel />
 
-    <hr className="featurette-divider" />
-        <Features />
+    {/* <hr className="featurette-divider" />
+        <Features /> */}
         <hr className="featurette-divider" />
         <ContactUsPage/>
         <div className="fixed-bottom d-flex justify-content-center" style={{ marginBottom: "70px" }}>

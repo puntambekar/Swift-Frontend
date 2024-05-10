@@ -46,9 +46,9 @@ export const App=()=> {
           <Route path="/home">
             <HomePage />
           </Route>
-          <Route path="/courtBooking">
+          <SecureRoute path="/courtBooking">
           <BookingPage />
-          </Route>
+          </SecureRoute>
           {/* <Route path="/page">
             <div>Page</div>
           </Route> */}
