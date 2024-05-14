@@ -5,13 +5,13 @@ import Venue from "../../../Models/Venue";
 // Custom hook for form validation
 const useFormValidation = () => {
   const [values, setValues] = useState({
-    name: "",
-    phoneNumber: "",
+    firstName: "",
+    lastName: "",
     email: ""
   });
   const [errors, setErrors] = useState({
-    name: "",
-    phoneNumber: "",
+    firstName: "",
+    lastName: "",
     email: ""
   });
 
@@ -30,10 +30,8 @@ const useFormValidation = () => {
   const validateForm = () => {
     let valid = true;
     const newErrors = {
-      name: values.name.trim() ? "" : "Please enter your name.",
-      phoneNumber: /^\d{10}$/.test(values.phoneNumber)
-        ? ""
-        : "Please enter a valid phone number.",
+      firstName: values.firstName.trim() ? "" : "Please enter your first name.",
+      lastName: values.lastName.trim() ? "" : "Please enter your last name.",
       email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)
         ? ""
         : "Please enter a valid email address."
@@ -86,14 +84,14 @@ const DetailModal: React.FC<{
           <div className="modal-body">
             <form onSubmit={handleSubmitAndNextToReview}>
               <div className="mb-3">
-                <label className="form-label" htmlFor="name">Name:</label>
-                <input className={`form-control ${errors.name && "is-invalid shake"}`} type="text" id="name" name="name" value={values.name} onChange={handleChange} required />
-                {errors.name && <div className="invalid-feedback">{errors.name}</div>}
+                <label className="form-label" htmlFor="firstName">First Name:</label>
+                <input className={`form-control ${errors.firstName && "is-invalid shake"}`} type="text" id="firstName" name="firstName" value={values.firstName} onChange={handleChange} required />
+                {errors.firstName && <div className="invalid-feedback">{errors.firstName}</div>}
               </div>
               <div className="mb-3">
-                <label className="form-label" htmlFor="phoneNumber">Phone Number:</label>
-                <input className={`form-control ${errors.phoneNumber && "is-invalid shake"}`} type="tel" id="phoneNumber" name="phoneNumber" value={values.phoneNumber} onChange={handleChange} required />
-                {errors.phoneNumber && <div className="invalid-feedback">{errors.phoneNumber}</div>}
+                <label className="form-label" htmlFor="lastName">Last Name:</label>
+                <input className={`form-control ${errors.lastName && "is-invalid shake"}`} type="text" id="lastName" name="lastName" value={values.lastName} onChange={handleChange} required />
+                {errors.lastName && <div className="invalid-feedback">{errors.lastName}</div>}
               </div>
               <div className="mb-3">
                 <label className="form-label" htmlFor="email">Email:</label>

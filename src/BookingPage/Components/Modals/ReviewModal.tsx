@@ -9,8 +9,8 @@ import { formatTime } from "../../../Utils/helperMethods";
 import { BOOKING_STATUS } from "../../../Utils/constants";
 
 interface UserData {
-    name: string;
-    phoneNumber: string;
+    firstName: string;
+    lastName: string;
     email: string;
 }
 
@@ -35,7 +35,7 @@ export const ReviewModal: React.FC<{
             "businessName": props.venue.businessName,
             "address": props.venue.address, "city": props.venue.city
         }, props.selectedDate, props.filteredSlots?.map(e => ({ "time": e.time, "courtBooked": e.courtBooked })),
-            { "name": props.userData.name, "email": props.userData.email, "phone": props.userData.phoneNumber },BOOKING_STATUS.ACTIVE)
+            { "firstName": props.userData.firstName,"lastName": props.userData.lastName, "email": props.userData.email },BOOKING_STATUS.ACTIVE)
 
         console.log(bookingData);
 
@@ -91,9 +91,10 @@ export const ReviewModal: React.FC<{
                     </div>
                     <div className="booking-section">
                         <h5>User Information</h5>
-                        <p><strong>Name:</strong> {props.userData.name}</p>
+                        <p><strong>First Name:</strong> {props.userData.firstName}</p>
+                        <p><strong>Last Name:</strong> {props.userData.lastName}</p>
                         <p><strong>Email:</strong> {props.userData.email}</p>
-                        <p><strong>Phone Number:</strong> {props.userData.phoneNumber}</p>
+                        
                     </div>
 
                 </div>
@@ -107,7 +108,7 @@ export const ReviewModal: React.FC<{
                 }</button>
             </div>
         </> : displaySuccess && !displayError ?
-            <BookingSuccessModal venueId = {props.venue.venueId} closeModal={props.closeModal} />
+            <BookingSuccessModal line1="Booking Confirmed" line2="The email has been sent to you with details!"/>
             : displayError ?
                 <BookingFailedModal closeModal={props.closeModal} />
                 : <></>}

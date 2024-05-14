@@ -7,7 +7,7 @@ export const Corousel = ()=>{
     </div>
     <div className="carousel-inner">
         <div className="carousel-item active">
-            <img src={require("./../../Images/Shuttle.jpg")} className="d-block w-100" alt="First slide" />
+            <img src={require("./../../Images/sport-elements-arrangement-minimal-style.jpg")} className="d-block w-100" alt="First slide" />
             <div className="container">
                 <div className="carousel-caption text-start">
                     <h1>Example headline.</h1>

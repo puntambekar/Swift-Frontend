@@ -32,7 +32,7 @@ export const AvailabilityGrid:React.FC<{availability:Availabilty|undefined,handl
                                 type="number"
                                 min={0}
                                 value={day.hourlyAvailability[hourIndex]?.courtAvailable.toString()}
-                    
+                               
                                 onChange={e => props.handleAvailabilityChange(dayIndex, hourIndex, e.target.value)}
                                 required
                             />

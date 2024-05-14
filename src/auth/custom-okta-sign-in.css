@@ -1,0 +1,154 @@
+.auth-container.main-container.no-beacon {
+ 
+    justify-content: center;
+    align-items: center;
+    
+  }
+  .auth-content {
+  justify-content: center;
+  }
+  
+  /* Header styles */
+  .auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  /* Form styles */
+  .primary-auth-form {
+    background-color: #fff;
+    
+    border-radius: 10px;
+    
+    max-width: 500px;
+    margin: 0 auto; /* Center the form horizontally */
+  }
+  
+  .o-form-head {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .o-form-label {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .o-form-input-container {
+    margin-bottom: 20px;
+  }
+  
+  .o-form-input-name-username,
+  .o-form-input-name-password {
+ 
+  }
+  .o-form-input-name-username input,
+  .o-form-input-name-password input{
+    display: block;
+    width: 100%;
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+ 
+ 
+  }
+
+  
+  .o-form-input-name-username:focus,
+  .o-form-input-name-password:focus {
+    border-color: #007bff;
+   
+  }
+  
+  .o-form-input-name-remember {
+    display: inline-block;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .custom-checkbox input[type="checkbox"] {
+    display: none;
+  }
+  
+  .custom-checkbox input[type="checkbox"] + label {
+    display: inline-block;
+    font-weight: normal;
+    cursor: pointer;
+  }
+  
+  .custom-checkbox input[type="checkbox"] + label:before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-right: 5px;
+  }
+  
+  .custom-checkbox input[type="checkbox"]:checked + label:before {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .o-form-button-bar {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .button.button-primary {
+    display: block; /* Make the button a block-level element */
+    width: 100%; /* Set the width to 100% to make it span the full width of its container */
+    padding: 12px 0; /* Adjust padding as needed */
+    margin-top: 20px; /* Add some spacing at the top */
+  }
+  
+  
+  .button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
+  
+  .button-primary {
+    background-color: #007bff;
+  }
+  
+  /* Footer styles */
+  .auth-footer {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+  
+  .okta-form-title{
+    display: none;
+  }
+
+  .modal-dialog {
+    max-width: calc(100% - 17px); /* Adjust the value as needed */
+  }
+  
+  .modal-content {
+    padding: 10px;
+  }

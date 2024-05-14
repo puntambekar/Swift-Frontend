@@ -12,7 +12,10 @@ export const Navbar = () => {
 
             <nav className="navbar navbar-expand-lg navbar-light bg-light shadow">
                 <div className="container-fluid">
-                    <Link className="navbar-brand" to="/home"><img src={require("./../Images/S.png")} width="50px" height="50px" /></Link>
+                    <div>
+                        <Link className="navbar-brand" to="/home"><img src={require("./../Images/S.png")} width="60px" height="60px" style={{borderRadius:"50%"}} /></Link>
+                    </div>
+
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -49,7 +52,7 @@ export const Navbar = () => {
 
                             {!authState?.isAuthenticated ?
                                 <li className="nav-item">
-                                    <NavLink to="/login" className="nav-link link-body-emphasis px-2"><b>Login</b></NavLink></li>
+                                    <NavLink to="/login" className="nav-link link-body-emphasis px-2"><b>Sign in</b></NavLink></li>
                                 :
                                 <button onClick={handleLogout} className="nav-link link-body-emphasis px-2"><b>Logout</b></button>
                             }

@@ -58,9 +58,9 @@ export const App=()=> {
           <Route path="/contact">
             <ContactUsPage/>
           </Route>
-          <Route path="/signup">
+          {/* <Route path="/signup">
             <SignupPage/>
-          </Route>
+          </Route> */}
           {/* <Route path="/booking/:venueId">
             <Booking />
           </Route> */}

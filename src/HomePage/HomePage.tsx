@@ -6,9 +6,9 @@ import { Features } from "./Components/Features";
 export const HomePage =()=>{
   return (
 
-    <div className=" mt-5" >
-        <Corousel />
-
+    <div  >
+        {/* <Corousel /> */}
+        <img src={require("./../Images/sport-elements-arrangement-minimal-style.jpg")} className="d-block w-100"/>
     {/* <hr className="featurette-divider" />
         <Features /> */}
         <hr className="featurette-divider" />

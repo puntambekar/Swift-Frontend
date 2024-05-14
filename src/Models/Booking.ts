@@ -12,9 +12,10 @@ class Booking {
         courtBooked:number;
     }[]|undefined; 
     user: {
-        name: string;
+        firstName: string;
+        lastName:string;
         email: string;
-        phone: string;
+        
     };
     status:string;//can be (active,cancelledByUser,cancelledByAdmin,completed)
 
@@ -22,7 +23,7 @@ class Booking {
         venue: { id:string;businessName: string; address: string; city: string },
         date: string,
         timeSlots:{time:string;courtBooked:number}[]|undefined,
-        user: { name: string; email: string; phone: string },
+        user: { firstName: string; lastName: string; email: string },
         status:string
     ) {
         this.venue = venue;

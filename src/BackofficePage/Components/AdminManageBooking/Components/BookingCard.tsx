@@ -89,9 +89,9 @@ export const BookingCard: React.FC<{ booking: Booking}> = (props) => {
             <div className="card-body">
                 <h5 className="card-title">User Information</h5>
                 <p className="card-text">
-                    <b>Name:</b> {props.booking.user.name}<br />
+                    <b>Name:</b> {props.booking.user.firstName} {props.booking.user.lastName}<br />
                     <b>Email:</b> {props.booking.user.email}<br />
-                    <b>Phone:</b> {props.booking.user.phone}
+                 
                 </p>
                 <h5 className="card-title">Date: {props.booking.date} </h5>
 
