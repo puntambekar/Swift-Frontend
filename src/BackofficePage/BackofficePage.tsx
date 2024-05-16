@@ -5,7 +5,7 @@ import { AdminRetrieveBookings } from "./Components/AdminRetrieveBooking/AdminRe
 import { VenueProfile } from "./Components/VenueProfile/VenueProfile";
 
 import Booking from "../Models/Booking";
-import { AdminManageBookings } from "./Components/AdminManageBooking/AdminManageBookings";
+import { ManageBookings } from "../Commons/ManageBookings";
 import { AdminManageAvailability } from "./Components/AdminManageAvailability/AdminManageAvailability";
 
 export const Backoffice = () => {
@@ -17,6 +17,8 @@ export const Backoffice = () => {
         return <Redirect to="/home" />
     }
 
+ 
+
     let content;
     switch (action) {
         case "bookings":
@@ -26,7 +28,7 @@ export const Backoffice = () => {
             content = <VenueProfile/>;
             break;
         case "manage":
-            content = <AdminManageBookings/>;
+            content = <ManageBookings/>;
             break;
             case "availability":
                 content = <AdminManageAvailability/>;

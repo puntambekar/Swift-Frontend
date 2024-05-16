@@ -3,7 +3,7 @@ import moment, { Moment } from "moment";
 import { TimeSlot } from "./TimeSlot";
 import { TimeButton } from "./TimeButton";
 import Venue from "../../../Models/Venue";
-import { Spinner } from "../../../Utils/Spinner";
+import { Spinner } from "../../../Commons/Spinner";
 import { v4 as uuidv4 } from 'uuid';
 import { useWindowSize } from "@react-hook/window-size";
 

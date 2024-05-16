@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Venue from "../../../Models/Venue";
-import { Counter } from "../../../Utils/Counter";
+import { Counter } from "../../../Commons/Counter";
 import styled from "styled-components";
 import "./Modal.css"
 import { SummaryModal } from "./SummaryModal";
 import { time } from "console";
-import { Spinner } from "../../../Utils/Spinner";
-import { Errorpage } from "../../../Utils/Errorpage";
+import { Spinner } from "../../../Commons/Spinner";
+import { Errorpage } from "../../../Commons/Errorpage";
 import { fetchDailyAvailabilityForADayData } from "../../../Services/venueService";
 
 

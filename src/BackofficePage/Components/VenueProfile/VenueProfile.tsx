@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Venue from "../../../Models/Venue";
-import { Spinner } from "../../../Utils/Spinner";
-import { Errorpage } from "../../../Utils/Errorpage";
+import { Spinner } from "../../../Commons/Spinner";
+import { Errorpage } from "../../../Commons/Errorpage";
 import { formatTime } from "../../../Utils/helperMethods";
 import { fetchVenueData } from "../../../Services/venueService";
 

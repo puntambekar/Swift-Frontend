@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import "./SuccessPage.css"
-export const BookingSuccessModal:React.FC<{line1:string,line2:string}>=(props)=>{
+export const SuccessModal:React.FC<{line1:string,line2:string}>=(props)=>{
     return( <>
       <div className="modal-overlay"></div>
         <div

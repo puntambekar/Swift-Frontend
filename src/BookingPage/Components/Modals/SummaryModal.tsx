@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Counter } from "../../../Utils/Counter";
+import { Counter } from "../../../Commons/Counter";
 import  DetailModal  from "./DetailModal";
 import { ReviewModal } from "./ReviewModal";
 import Venue from "../../../Models/Venue";

@@ -1,21 +1,38 @@
 import Booking from "../Models/Booking";
 import BookingEvent from "../Models/BookingEvent";
 
- export async function  fetchBookingsData ():Promise<Booking[]> {
-
-    const url: string = `http://localhost:8080/api/booking/list`;
-    const requestOptions = {
-        method: "GET",
-        headers: {
-            "content-type": "application/json"
+export async function fetchBookingsData(isAdmin: boolean,accessToken:string|undefined): Promise<Booking[]> {
+    let url: string;
+    let requestOptions;
+    if (isAdmin) {
+        console.log("admin here")
+        url = `http://localhost:8080/api/booking/list`;
+         requestOptions = {
+            method: "GET",
+            headers: {
+                "content-type": "application/json"
+            }
+        }
+    } else {
+        console.log("user here")
+        url = `http://localhost:8080/api/booking/listByEmail`;
+        requestOptions = {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json"
+            }
+            
         }
     }
-    try{
+
+
+    try {
         const response = await fetch(url, requestOptions);
         const responseJson = await response.json();
-    
+
         const loadedBookings: Booking[] = [];
-    
+
         for (const key in responseJson) {
             loadedBookings.push({
                 id: responseJson[key].id,
@@ -23,18 +40,18 @@ import BookingEvent from "../Models/BookingEvent";
                 date: responseJson[key].date,
                 timeSlots: responseJson[key].timeSlots,
                 user: responseJson[key].user,
-                status:responseJson[key].status
+                status: responseJson[key].status
             });
         }
-     return loadedBookings;
-    }catch (error) {
+        return loadedBookings;
+    } catch (error) {
         console.error('Error fetching booking data:', error);
         throw error;
     }
-    
+
 };
 
-export async function fetchBookingSlotsData ():Promise<BookingEvent[]> {
+export async function fetchBookingSlotsData(): Promise<BookingEvent[]> {
     const url: string = `http://localhost:8080/api/booking/slots`;
     const requestOptions = {
         method: "GET",
@@ -42,28 +59,28 @@ export async function fetchBookingSlotsData ():Promise<BookingEvent[]> {
             "content-type": "application/json"
         }
     }
-    try{
+    try {
         const response = await fetch(url, requestOptions);
         const responseJson = await response.json();
         console.log(response);
         console.log(responseJson);
-    
+
         const loadedBookingsEvents: BookingEvent[] = [];
-    
-        for(const key in responseJson){
+
+        for (const key in responseJson) {
             loadedBookingsEvents.push({
-            id: responseJson[key].id,
-            title:responseJson[key].title,
-            start: responseJson[key].start,
-            end: responseJson[key].end,
-           
-           
-          });
+                id: responseJson[key].id,
+                title: responseJson[key].title,
+                start: responseJson[key].start,
+                end: responseJson[key].end,
+
+
+            });
         }
-       return loadedBookingsEvents;
-    }catch (error) {
+        return loadedBookingsEvents;
+    } catch (error) {
         console.error('Error fetching booking data:', error);
         throw error;
     }
-   
+
 };

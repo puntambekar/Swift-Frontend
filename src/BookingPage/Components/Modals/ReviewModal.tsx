@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Booking from "../../../Models/Booking";
 import Venue from "../../../Models/Venue";
-import { BookingFailedModal } from "./BookingFailedModal";
-import { BookingSuccessModal } from "./BookingSuccessModal";
-import { Spinner } from "../../../Utils/Spinner";
+import { FailedModal } from "../../../Commons/FailedModal";
+import { SuccessModal } from "../../../Commons/SuccessModal";
+import { Spinner } from "../../../Commons/Spinner";
 import "./Review.css";
 import { formatTime } from "../../../Utils/helperMethods";
 import { BOOKING_STATUS } from "../../../Utils/constants";
@@ -108,9 +108,9 @@ export const ReviewModal: React.FC<{
                 }</button>
             </div>
         </> : displaySuccess && !displayError ?
-            <BookingSuccessModal line1="Booking Confirmed" line2="The email has been sent to you with details!"/>
+            <SuccessModal line1="Booking Confirmed" line2="The email has been sent to you with details!"/>
             : displayError ?
-                <BookingFailedModal closeModal={props.closeModal} />
+                <FailedModal closeModal={props.closeModal} />
                 : <></>}
     </>)
 }

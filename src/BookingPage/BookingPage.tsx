@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Venue from "../Models/Venue";
 import { AvailabilityChart } from "./Components/AvailabilityChart/AvailabilityChart";
 import { Spinner } from "react-bootstrap";
-import { Errorpage } from "../Utils/Errorpage";
+import { Errorpage } from "../Commons/Errorpage";
 import { fetchVenueData } from "../Services/venueService";
 
 export const BookingPage: React.FC<{}> = () => {

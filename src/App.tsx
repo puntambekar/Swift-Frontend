@@ -13,6 +13,8 @@ import { BrowserRouter, Redirect, Route, Switch, useHistory } from 'react-router
 import { SignupPage } from './auth/SignupPage';
 import { ContactUsPage } from './ContactUsPage/ContactUsPage';
 import { Backoffice } from './BackofficePage/BackofficePage';
+import { UserPage } from './UserPage/UserPage';
+import { AboutusPage } from './AboutusPage/AboutusPage';
 
 
 const oktaAuth = new OktaAuth(oktaConfig);
@@ -53,23 +55,20 @@ export const App=()=> {
             <div>Page</div>
           </Route> */}
           <Route path="/about">
-            <div>About</div>
+            <AboutusPage/>
           </Route>
           <Route path="/contact">
             <ContactUsPage/>
           </Route>
-          {/* <Route path="/signup">
-            <SignupPage/>
-          </Route> */}
-          {/* <Route path="/booking/:venueId">
-            <Booking />
-          </Route> */}
           <SecureRoute path="/backoffice"
           >
             <Backoffice/>
           </SecureRoute>
           <SecureRoute path="/backoffice/:action">
             <Backoffice />
+          </SecureRoute>
+          <SecureRoute path="/user/:action">
+            <UserPage />
           </SecureRoute>
     
           <Route

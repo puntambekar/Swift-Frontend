@@ -1,7 +1,7 @@
 import "./SuccessPage.css"
 interface BookingFailedModalProps { closeModal: () => void }
 
-export const BookingFailedModal: React.FC<BookingFailedModalProps> = (props) => {
+export const FailedModal: React.FC<BookingFailedModalProps> = (props) => {
     return (<><div className="modal-header">
         <h5 className="modal-title"></h5>
         <button type="button" className="btn-close" onClick={props.closeModal}></button>

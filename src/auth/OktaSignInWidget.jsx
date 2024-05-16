@@ -80,11 +80,6 @@ const OktaSignInWidget = ({ onSuccess, onError }) => {
                     <SignupPage closeSignupModal={closeSignupModal} />
                   )}
 
-                  {/* <div className="modal-footer">
-                <button type="button" className="btn btn-success">
-                  Sign Up
-                </button>
-              </div> */}
                 </>
               </div>
             </div>

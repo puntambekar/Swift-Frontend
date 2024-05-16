@@ -1,22 +1,27 @@
 import { useEffect, useState } from "react";
-import Booking from "../../../Models/Booking";
-import { Spinner } from "../../../Utils/Spinner";
-import { Errorpage } from "../../../Utils/Errorpage";
-import { BookingCard } from "./Components/BookingCard";
-import { fetchBookingsData } from "../../../Services/bookingService";
+import Booking from "../Models/Booking";
+import { Spinner } from "./Spinner";
+import { Errorpage } from "./Errorpage";
+import { BookingCard } from "./BookingCard";
+import { fetchBookingsData } from "../Services/bookingService";
+import { useOktaAuth } from "@okta/okta-react";
 
-export const AdminManageBookings = () => {
+export const ManageBookings = () => {
+    const { authState } = useOktaAuth();
 
     const [httpError, setHttpError] = useState(null);
     const [IsLoading, setIsLoading] = useState(true);
+
     const [bookings, setBookings] = useState<Booking[]>();
     const [searchTerm, setSearchTerm] = useState('');
     const [bookingStatusChanged, setBookingStatusChanged] = useState(false);
-
+   
+    const isAdmin = authState?.accessToken?.claims.userType === "admin";
+    
     useEffect(() => {
         const fetchBooking = async () => {
             try {
-                const loadedBookings = await fetchBookingsData();
+                const loadedBookings = await fetchBookingsData(isAdmin,authState?.accessToken?.accessToken);
                 setBookings(loadedBookings);
                 setIsLoading(false);
             } catch (error:any) {
@@ -75,7 +80,7 @@ export const AdminManageBookings = () => {
                 </div>
             </div>
             <div>
-                {filteredBookings?.map(booking => <BookingCard key={booking.id} booking={booking} />)}
+                {filteredBookings?.map(booking => <BookingCard key={booking.id} booking={booking}  accessToken={authState?.accessToken?.accessToken} />)}
             </div>
         </div>
     )

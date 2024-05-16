@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Venue from "../../../Models/Venue";
-import { Spinner } from "../../../Utils/Spinner";
-import { Errorpage } from "../../../Utils/Errorpage";
+import { Spinner } from "../../../Commons/Spinner";
+import { Errorpage } from "../../../Commons/Errorpage";
 import { fetchVenueData } from "../../../Services/venueService";
 import Availabilty from "../../../Models/Availabilty";
 import { fetchMonthlyAvailabilityData, saveUpdatedMonthlyAvailabilityData } from "../../../Services/availabilityService";

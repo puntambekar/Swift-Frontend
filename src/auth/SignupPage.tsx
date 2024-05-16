@@ -1,10 +1,10 @@
 import { useState } from "react";
 import User from "../Models/User";
-import { Spinner } from "../Utils/Spinner";
+import { Spinner } from "../Commons/Spinner";
 import "./sign-up-page.css";
 
 import { SignupError } from "./SignupError";
-import { BookingSuccessModal } from "../BookingPage/Components/Modals/BookingSuccessModal";
+import { SuccessModal } from "../Commons/SuccessModal";
 
 
 const useFormValidation = () => {
@@ -157,7 +157,7 @@ export const SignupPage: React.FC<{ closeSignupModal: () => void }> = (props) =>
       </div>
       {
         signupSuccess &&
-        <BookingSuccessModal line1={"Your account has been created"} line2={"Please check your email for account activation"} />
+        <SuccessModal line1={"Your account has been created"} line2={"Please check your email for account activation"} />
       }
 
       {

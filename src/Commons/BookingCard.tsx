@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 // import BookingDetails from './BookingDetails'; // Import your details component here
-import Booking from '../../../../Models/Booking';
-import { formatTime } from '../../../../Utils/helperMethods';
+import Booking from '../Models/Booking';
+import { formatTime } from '../Utils/helperMethods';
 
 
-export const BookingCard: React.FC<{ booking: Booking}> = (props) => {
+export const BookingCard: React.FC<{ booking: Booking, accessToken:string|undefined}> = (props) => {
 
     const [IsLoading, setIsLoading] = useState(false);
     const [displayCancelSuccess, setDisplayCancelSuccess] = useState(false);
@@ -44,7 +44,8 @@ export const BookingCard: React.FC<{ booking: Booking}> = (props) => {
             const requestOptions = {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${props.accessToken}`
                 },
                 body: bookingId
             };
@@ -82,7 +83,7 @@ export const BookingCard: React.FC<{ booking: Booking}> = (props) => {
             <div className="card-header bg-light">
                 <h5 className="mb-0">
                     Booking ID: {props.booking.id}
-                    <span className={`badge text-bg-${!displayCancelSuccess?statusColor:"danger"} float-end`}>{!displayCancelSuccess?displayStatus:`Cancelled By Admin`}</span>
+                    <span className={`badge text-bg-${!displayCancelSuccess?statusColor:"danger"} float-end`}>{!displayCancelSuccess?displayStatus:`Cancelled`}</span>
                 </h5>
             </div>
 

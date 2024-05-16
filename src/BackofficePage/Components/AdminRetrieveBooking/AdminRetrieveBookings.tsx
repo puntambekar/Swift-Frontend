@@ -3,7 +3,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
-import { Errorpage } from '../../../Utils/Errorpage';
+import { Errorpage } from '../../../Commons/Errorpage';
 import Booking from '../../../Models/Booking';
 import BookingEvent from '../../../Models/BookingEvent';
 import { fetchBookingSlotsData } from '../../../Services/bookingService';

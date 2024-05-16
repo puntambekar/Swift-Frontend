@@ -152,3 +152,19 @@
   .modal-content {
     padding: 10px;
   }
+
+  .okta-form-infobox-error{
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404;
+  }
+
+  .link-button{
+   
+    text-align: center;
+  }
+
+  .link-button:hover{
+   color: white;
+    text-align: center;
+  }
