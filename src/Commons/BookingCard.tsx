@@ -36,7 +36,7 @@ export const BookingCard: React.FC<{ booking: Booking, accessToken:string|undefi
     async function handleCancelBooking() {
 
         setIsLoading(true);
-        const url = "http://localhost:8080/api/booking/cancel";
+        const url = `${process.env.REACT_APP_API}/booking/cancel`;
         const bookingId: string | undefined = props.booking.id;
 
 

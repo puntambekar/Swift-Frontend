@@ -70,7 +70,7 @@ export const SignupPage: React.FC<{ closeSignupModal: () => void }> = (props) =>
     const isValid = validateForm();
     if (isValid) {
       console.log("yes valid")
-      const url = "http://localhost:8080/api/user/register";
+      const url = `${process.env.REACT_APP_API}/user/register`;
       const userData = new User(formData.firstName, formData.lastName, formData.email);
       console.log(userData);
 

@@ -60,6 +60,9 @@ export const App=()=> {
           <Route path="/contact">
             <ContactUsPage/>
           </Route>
+          <Route path="/guest">
+            <BookingPage/>
+          </Route>
           <SecureRoute path="/backoffice"
           >
             <Backoffice/>

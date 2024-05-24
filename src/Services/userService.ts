@@ -3,7 +3,7 @@ import User from "../Models/User";
 
 export async function fetchUserData(accessToken:string|undefined): Promise<User> {
 
-    const url: string = `http://localhost:8080/api/user/details`;
+    const url: string = `${process.env.REACT_APP_API}/user/details`;
     const requestOptions = {
         method: "POST",
         headers: {

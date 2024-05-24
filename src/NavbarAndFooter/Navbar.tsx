@@ -73,7 +73,7 @@ export const Navbar = () => {
 
                             {!authState?.isAuthenticated ?
                                 <li className="nav-item">
-                                    <NavLink to="/login" className="nav-link link-body-emphasis px-2"><b>Sign in</b></NavLink></li>
+                                    <NavLink to="/login" className="nav-link link-body-emphasis px-2" type="button"><b>Sign in</b></NavLink></li>
                                 : authState?.isAuthenticated && authState?.accessToken?.claims?.userType === 'admin' ?
                                     <>
                                         <li className="nav-item dropdown dropstart">

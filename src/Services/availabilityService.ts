@@ -2,7 +2,7 @@ import Availabilty from "../Models/Availabilty";
 
 export async function fetchMonthlyAvailabilityData(year:string,month:string):Promise<Availabilty> {
 
-    const url: string = `http://localhost:8080/api/availability/data?year=${year}&&month=${month}`;
+    const url: string = `${process.env.REACT_APP_API}/availability/data?year=${year}&&month=${month}`;
 
     const requestOptions = {
         method: "GET",
@@ -25,7 +25,7 @@ export async function fetchMonthlyAvailabilityData(year:string,month:string):Pro
 
 export async function saveUpdatedMonthlyAvailabilityData(avail:Availabilty){
 
-    const url:string="http://localhost:8080/api/availability/update";
+    const url:string=`${process.env.REACT_APP_API}/availability/update`;
     const requestOptions = {
         method: "POST",
         headers: {

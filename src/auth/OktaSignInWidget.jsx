@@ -5,6 +5,7 @@ import OktaSignIn, { OktaSignInAPI } from "@okta/okta-signin-widget";
 import "./custom-okta-sign-in.css";
 import { SignupPage } from "./SignupPage";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const OktaSignInWidget = ({ onSuccess, onError }) => {
   const [showSignupModal, setShowSignupModal] = useState(false);
@@ -74,6 +75,17 @@ const OktaSignInWidget = ({ onSuccess, onError }) => {
                     >
                       Create new account
                     </button>
+                  </div>
+                  <div className="d-flex justify-content-center mt-3">
+                    <hr />
+
+                    <Link
+                      type="button"
+                      className="btn btn-secondary btn-lg"
+                      to="/guest"
+                    >
+                      Continue as Guest
+                    </Link>
                   </div>
 
                   {showSignupModal && (

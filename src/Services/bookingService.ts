@@ -6,7 +6,7 @@ export async function fetchBookingsData(isAdmin: boolean,accessToken:string|unde
     let requestOptions;
     if (isAdmin) {
         console.log("admin here")
-        url = `http://localhost:8080/api/booking/list`;
+        url = `${process.env.REACT_APP_API}/booking/list`;
          requestOptions = {
             method: "GET",
             headers: {
@@ -15,7 +15,7 @@ export async function fetchBookingsData(isAdmin: boolean,accessToken:string|unde
         }
     } else {
         console.log("user here")
-        url = `http://localhost:8080/api/booking/listByEmail`;
+        url = `${process.env.REACT_APP_API}/booking/listByEmail`;
         requestOptions = {
             method: "POST",
             headers: {
@@ -52,7 +52,7 @@ export async function fetchBookingsData(isAdmin: boolean,accessToken:string|unde
 };
 
 export async function fetchBookingSlotsData(): Promise<BookingEvent[]> {
-    const url: string = `http://localhost:8080/api/booking/slots`;
+    const url: string = `${process.env.REACT_APP_API}/booking/slots`;
     const requestOptions = {
         method: "GET",
         headers: {

@@ -2,7 +2,7 @@ import Venue from "../Models/Venue";
 
 export async function fetchVenueData(): Promise<Venue> {
 
-    const url: string = `http://localhost:8080/api/venues/details`;
+    const url: string = `${process.env.REACT_APP_API}/venues/details`;
     const requestOptions = {
         method: "GET",
         headers: {
@@ -28,7 +28,7 @@ export async function fetchVenueData(): Promise<Venue> {
 }
 
 export async function fetchDailyAvailabilityForADayData(date:string):Promise<any> {
-    const url: string = `http://localhost:8080/api/venues/dailyAvail?date=${date}`;
+    const url: string = `${process.env.REACT_APP_API}/venues/dailyAvail?date=${date}`;
     const requestOptions = {
         method: "GET",
         headers: {
