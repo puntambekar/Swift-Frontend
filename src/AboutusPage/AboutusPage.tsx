@@ -12,7 +12,7 @@ export const AboutusPage =()=>{
         <li><b>Admin View</b>: Administrators have access to a comprehensive backend system where they can manage court availability, view and manage bookings, and maintain user profiles.</li>
     </ul>
     
-    <h3>Technologies Used</h3>
+    <h3>Technologies Used:</h3>
     <p>This application is developed using the following technologies:</p>
     <ul>
         <li><b>Java</b></li>
