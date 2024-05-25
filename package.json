@@ -1,6 +1,7 @@
 {
   "name": "swift",
   "version": "0.1.0",
+  "homepage": "https://puntambekar.github.io/Swift-Frontend",
   "private": true,
   "dependencies": {
     "@okta/okta-react": "^6.8.0",
@@ -31,6 +32,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "CI=false react-scripts build",
     "test": "react-scripts test",
