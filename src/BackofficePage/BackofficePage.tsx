@@ -11,7 +11,7 @@ import { AdminManageAvailability } from "./Components/AdminManageAvailability/Ad
 export const Backoffice = () => {
 
     const { authState } = useOktaAuth();
-    const action: string = window.location.pathname.split("/")[2];
+    const action: string = window.location.pathname.split("/")[1];
 
     if (authState?.accessToken?.claims.userType === undefined) {
         return <Redirect to="/home" />

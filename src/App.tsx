@@ -63,14 +63,23 @@ export const App=()=> {
           <Route path="/guest">
             <BookingPage/>
           </Route>
-          <SecureRoute path="/backoffice"
+          <SecureRoute path="/profile"
           >
             <Backoffice/>
           </SecureRoute>
-          <SecureRoute path="/backoffice/:action">
-            <Backoffice />
+          <SecureRoute path="/bookings"
+          >
+            <Backoffice/>
           </SecureRoute>
-          <SecureRoute path="/user/:action">
+          <SecureRoute path="/manage"
+          >
+            <Backoffice/>
+          </SecureRoute>
+          <SecureRoute path="/availability"
+          >
+            <Backoffice/>
+          </SecureRoute>
+          <SecureRoute path="/myBookings">
             <UserPage />
           </SecureRoute>
     

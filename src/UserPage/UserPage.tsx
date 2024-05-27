@@ -14,7 +14,7 @@ export const UserPage = () => {
 
     let content;
     switch (action) {
-        case "manage":
+        case "myBookings":
             content = <ManageBookings/>;
             break;
         default:
