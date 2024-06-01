@@ -51,9 +51,6 @@ export const App=()=> {
           <SecureRoute path="/courtBooking">
           <BookingPage />
           </SecureRoute>
-          {/* <Route path="/page">
-            <div>Page</div>
-          </Route> */}
           <Route path="/about">
             <AboutusPage/>
           </Route>
@@ -76,6 +73,10 @@ export const App=()=> {
             <Backoffice/>
           </SecureRoute>
           <SecureRoute path="/availability"
+          >
+            <Backoffice/>
+          </SecureRoute>
+          <SecureRoute path="/messages"
           >
             <Backoffice/>
           </SecureRoute>
