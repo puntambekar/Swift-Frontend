@@ -1,5 +1,6 @@
 import { useOktaAuth } from "@okta/okta-react";
 import { useState } from "react";
+import Message from "../../Models/Message";
 
 export const ContactForm = ()=>{
     const { authState } = useOktaAuth();
@@ -11,31 +12,32 @@ export const ContactForm = ()=>{
     const [displaySuccess, setDisplaySuccess] = useState(false);
 
     async function submitMessage() {
-        // const url = `${process.env.REACT_APP_API}/messages/secure/add/message`;
-        // if (authState?.isAuthenticated && title !== "" && question !== "") {
-        //     const messageRequest: MessageModel = new MessageModel(title, question);
-        //     const requestOption = {
-        //         method: "POST",
-        //         headers: {
-        //             Authorization: `Bearer ${authState?.accessToken?.accessToken}`,
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify(messageRequest)
-        //     };
+        console.log(name,email,message);
+        const url = `${process.env.REACT_APP_API}/message/add`;
+        if (name !== "" && email !== "" && message !=="") {
+            const messageRequest: Message = new Message(name, email,message);
+            const requestOption = {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(messageRequest)
+            };
 
-        //     const submitQuestionResponse = await fetch(url, requestOption);
-        //     if (!submitQuestionResponse.ok) {
-        //         throw new Error("Something went wrong!")
-        //     }
-        //     setTitle("");
-        //     setQuestion("");
-        //     setDisplayWarning(false);
-        //     setDisplaySuccess(true);
-        // }
-        // else {
-        //     setDisplayWarning(true);
-        //     setDisplaySuccess(false);
-        // }
+            const submitMessageResponse = await fetch(url, requestOption);
+            if (!submitMessageResponse.ok) {
+                throw new Error("Something went wrong!")
+            }
+            setName("");
+            setEmail("");
+            setMessage("");
+            setDisplayWarning(false);
+            setDisplaySuccess(true);
+        }
+        else {
+            setDisplayWarning(true);
+            setDisplaySuccess(false);
+        }
 
     }
 
@@ -55,24 +57,24 @@ export const ContactForm = ()=>{
                     }
                     {displaySuccess &&
                         <div className="alert alert-success" role="alert">
-                            Question added successfully
+                            Message sent successfully
                         </div>
                     }
                     <div className="mb-3">
                         <label className="form-label">Name
                         </label>
-                        <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Name"
+                        <input type="text" className="form-control" id="name" placeholder="Name"
                             onChange={(e) => setName(e.target.value)} value={name} />
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Email
                         </label>
-                        <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Email"
+                        <input type="text" className="form-control" id="email" placeholder="Email"
                             onChange={(e) => setEmail(e.target.value)} value={email} />
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Message</label>
-                        <textarea className="form-control" id="exampleFormControlTextarea1"
+                        <textarea className="form-control" id="message"
                             rows={3} onChange={(e) => { setMessage(e.target.value) }} value={message}></textarea>
                     </div>
                     <div>

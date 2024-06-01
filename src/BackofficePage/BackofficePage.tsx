@@ -7,6 +7,7 @@ import { VenueProfile } from "./Components/VenueProfile/VenueProfile";
 import Booking from "../Models/Booking";
 import { ManageBookings } from "../Commons/ManageBookings";
 import { AdminManageAvailability } from "./Components/AdminManageAvailability/AdminManageAvailability";
+import { AdminMessages } from "./Components/AdminMessages/AdminMessages";
 
 export const Backoffice = () => {
 
@@ -17,7 +18,7 @@ export const Backoffice = () => {
         return <Redirect to="/home" />
     }
 
- 
+
 
     let content;
     switch (action) {
@@ -25,14 +26,17 @@ export const Backoffice = () => {
             content = <AdminRetrieveBookings />;
             break;
         case "profile":
-            content = <VenueProfile/>;
+            content = <VenueProfile />;
             break;
         case "manage":
-            content = <ManageBookings/>;
+            content = <ManageBookings />;
             break;
-            case "availability":
-                content = <AdminManageAvailability/>;
-                break;
+        case "availability":
+            content = <AdminManageAvailability />;
+            break;
+        case "messages":
+            content = <AdminMessages />;
+            break;
         default:
             content = null; // Render nothing if no action matches
     }

@@ -80,10 +80,12 @@ export const Navbar = () => {
                                             <button className="nav-link link-body-emphasis px-2" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ border: "1px solid black", borderRadius: "20px", padding: "2px" }}>
                                                 <b >{user?.firstName}</b><i className="bi bi-caret-down-fill" style={{ marginLeft: "8px", fontWeight: "bolder" }}></i></button>
                                             <ul className="dropdown-menu"style={{ borderRadius: "10px" }}>
-                                                <NavLink className="dropdown-item" to="/profile">Profile</NavLink>
+                                                {/* <NavLink className="dropdown-item" to="/profile">Profile</NavLink> */}
                                                 <NavLink className="dropdown-item" to="/bookings">Retrieve Bookings</NavLink>
                                                 <NavLink className="dropdown-item" to="/manage">Manage Bookings</NavLink>
                                                 <NavLink className="dropdown-item" to="/availability">Manage Availability</NavLink>
+                                                <NavLink className="dropdown-item" to="/messages">View Messages</NavLink>
+
                                                 <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
                                             </ul>
                                         </li></>

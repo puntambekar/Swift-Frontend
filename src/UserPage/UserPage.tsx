@@ -6,7 +6,7 @@ import { ManageBookings } from "../Commons/ManageBookings";
 export const UserPage = () => {
 
     const { authState } = useOktaAuth();
-    const action: string = window.location.pathname.split("/")[2];
+    const action: string = window.location.pathname.split("/")[1];
 
     if (!authState?.isAuthenticated) {
         return <Redirect to="/home" />
